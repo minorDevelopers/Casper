@@ -30,9 +30,16 @@ public class Gameplay extends Screen {
     private Random rand = new Random();
     private PImage scaledFloor;
     private static final int TILE_SIZE = 120;
+    private int candyLimit;
+    private int npcCount, candyCount, spiderCount, foliageCount;
 
     public Gameplay(Casper casper) {
         super(casper);
+        this.candyLimit = rand.nextInt(30)+10;
+        this.candyCount = rand.nextInt(30)+20;
+        this.npcCount = rand.nextInt(10)+5;
+        this.spiderCount = rand.nextInt(30)+10;
+        this.foliageCount = rand.nextInt(30)+10;
     }
 
     @Override
@@ -50,18 +57,18 @@ public class Gameplay extends Screen {
 
         entities.add(new Wall(getCasper().getDrawBuffer(), 400, 5));
 
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < candyCount; i++) {
             entities.add(new Candy(getCasper().getDrawBuffer()));
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < npcCount; i++) {
             entities.add(new NPC(getCasper().getDrawBuffer(), 5, 10));
         }
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < foliageCount; i++) {
             entities.add(new Bush(getCasper().getDrawBuffer(), Bush.generateValidBushCoordinate()));
             entities.add(new Tree(getCasper().getDrawBuffer(), Tree.generateValidTreeCoordinate()));
             entities.add(new Pumpkin(getCasper().getDrawBuffer(), Pumpkin.generateValidPumpkinCoordinate()));
         }
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < spiderCount; i++) {
             entities.add(new Spider(getCasper().getDrawBuffer()));
         }
     }
@@ -140,9 +147,10 @@ public class Gameplay extends Screen {
         }
 
 
-        getCasper().getDrawBuffer().hudText("Score: " + Integer.toString(player.getScore()), 10, (int) fontSize);
-        getCasper().getDrawBuffer().hudText("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int) fontSize * 2);
-        getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int) fontSize * 3);
+
+        getCasper().getDrawBuffer().hudText(String.format("Score: %d/%d", player.getScore(), this.candyLimit), 10, (int)fontSize);
+        //getCasper().getDrawBuffer().hudText("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int)fontSize*2);
+        //getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int)fontSize*3);
 
         if (getCasper().getManager().isPressed('w')) {
             if (!willCollide(player.simulateMove("up"))) {
