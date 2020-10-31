@@ -39,6 +39,7 @@ public class Casper extends PApplet {
             ResourceManager.getInstance().registerSprite("player-ghost", Casper.class.getResource("/Ghost.png"));
             ResourceManager.getInstance().registerSprite("player-pumpkin-man", Casper.class.getResource("/PumpkinMan.png"));
             ResourceManager.getInstance().registerSprite("player-vampire", Casper.class.getResource("/Vampire.png"));
+            ResourceManager.getInstance().registerSpriteSheet("floor-indoor", Casper.class.getResource("/IndoorFloors.png"), 1024, 1024, 0, 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
