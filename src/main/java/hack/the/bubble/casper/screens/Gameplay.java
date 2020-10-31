@@ -32,14 +32,16 @@ public class Gameplay extends Screen {
     private static final int TILE_SIZE = 120;
     private int candyLimit;
     private int npcCount, candyCount, spiderCount, foliageCount;
+    private boolean shouldQuit = false;
 
     public Gameplay(Casper casper) {
         super(casper);
-        this.candyLimit = rand.nextInt(30)+10;
+        //this.candyLimit = rand.nextInt(30)+10;
+        this.candyLimit = 1;
         this.candyCount = rand.nextInt(30)+20;
         this.npcCount = rand.nextInt(20)+10;
         this.spiderCount = rand.nextInt(30)+10;
-        this.foliageCount = rand.nextInt(60)+30;
+        this.foliageCount = rand.nextInt(30)+20;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class Gameplay extends Screen {
 
         entities.add(player);
 
-        entities.add(new Wall(getCasper().getDrawBuffer(), 400, 5));
+        //entities.add(new Wall(getCasper().getDrawBuffer(), 400, 5));
 
         for (int i = 0; i < candyCount; i++) {
             entities.add(new Candy(getCasper().getDrawBuffer()));
@@ -102,6 +104,7 @@ public class Gameplay extends Screen {
         drawFloor();
 
         float fontSize = 20f;
+        shouldQuit = false;
         getCasper().getDrawBuffer().textSize((int) fontSize);
         getCasper().getDrawBuffer().rect(0, 0, 5, 5);
 
@@ -109,6 +112,8 @@ public class Gameplay extends Screen {
         this.entities.forEach(e -> {
             e.update();
             e.draw();
+
+            shouldQuit = player.getScore() >= this.candyLimit;
 
             if (e.getEntityType() == "NPC" && e.getDistanceFrom(this.player) < COVID_DISTANCE) {
 
@@ -151,6 +156,10 @@ public class Gameplay extends Screen {
         getCasper().getDrawBuffer().hudText(String.format("Score: %d/%d", player.getScore(), this.candyLimit), 10, (int)fontSize);
         //getCasper().getDrawBuffer().hudText("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int)fontSize*2);
         //getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int)fontSize*3);
+
+        if(shouldQuit) {
+            getCasper().updateScreen( new MenuScreen(getCasper()), null );
+        }
 
         if (getCasper().getManager().isPressed('w')) {
             if (!willCollide(player.simulateMove("up"))) {
