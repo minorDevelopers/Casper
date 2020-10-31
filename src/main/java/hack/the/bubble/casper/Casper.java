@@ -11,11 +11,7 @@ import processing.event.MouseEvent;
 
 import java.awt.Rectangle;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Enumeration;
-import java.util.Optional;
+import java.util.*;
 
 public class Casper extends PApplet {
 
@@ -23,10 +19,12 @@ public class Casper extends PApplet {
     private Player player;
     private Collection<BaseEntity> entities = new ArrayList<>();
     private DrawBuffer drawBuffer;
+    private Random rand = new Random();
 
     private static int worldHeight = 1080 * 3;
     private static int worldWidth = 1920 * 3;
     private static final int CAMERA_MOVE_SPEED = 20;
+    private static double COVID_DISTANCE = 100.0;
 
     @Override
     public void settings() {
@@ -102,6 +100,15 @@ public class Casper extends PApplet {
         this.entities.forEach(e -> {
             e.update();
             e.draw();
+
+            if(e.getEntityType()=="NPC" && e.getDistanceFrom(this.player) < COVID_DISTANCE){
+                this.player.setCovidCooldown(1000);
+                if(e.hasCovid() && !this.player.hasCovid() && this.player.getCovidCooldown() <= 0) {
+                    this.player.setCovid(true);
+                    //this.player.setCovid( rand.nextDouble() == player.getTransmissionRate()*e.getTransmissionRate() );
+                }
+            }
+
             if (e.intersects(this.player)) {
                 player.onCollide(e);
                 e.onCollide(this.player);
@@ -130,7 +137,10 @@ public class Casper extends PApplet {
             entities.add(new Spider(drawBuffer));
         }
 
-        text("Score: " + Integer.toString(player.getScore()), 10, (int) fontSize);
+
+        text("Score: " + Integer.toString(player.getScore()), 10, (int)fontSize);
+        text("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int)fontSize*2);
+        text("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int)fontSize*3);
 
         if (manager.isPressed('w')) {
             if (!willCollide(player.simulateMove("up"))) {
