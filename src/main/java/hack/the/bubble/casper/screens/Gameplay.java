@@ -13,6 +13,7 @@ import hack.the.bubble.casper.entities.candyable.Pumpkin;
 import hack.the.bubble.casper.entities.candyable.Tree;
 
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -34,8 +35,9 @@ public class Gameplay extends Screen {
     public void setup() {
         this.player = new Player(getCasper().getDrawBuffer(), "player-male");
 
-        this.player.setPosX(getCasper().getDrawBuffer().width / 2);
-        this.player.setPosY(getCasper().getDrawBuffer().height / 2);
+        this.player.setPosX((int) (1920 * 1.5));
+        this.player.setPosY((int) (1080 * 1.5));
+        this.getCasper().getDrawBuffer().offset(-1920, -1230);
 
         entities.add(player);
 
@@ -85,11 +87,11 @@ public class Gameplay extends Screen {
             e.update();
             e.draw();
 
-            if(e.getEntityType()=="NPC" && e.getDistanceFrom(this.player) < COVID_DISTANCE){
+            if (e.getEntityType() == "NPC" && e.getDistanceFrom(this.player) < COVID_DISTANCE) {
 
-                if(e.hasCovid() && !this.player.hasCovid() && this.player.getCovidCooldown() <= 0) {
+                if (e.hasCovid() && !this.player.hasCovid() && this.player.getCovidCooldown() <= 0) {
                     this.player.setCovidCooldown(MAX_COVID_COOLDOWN);
-                    this.player.setCovid( rand.nextDouble() < player.getTransmissionRate()*e.getTransmissionRate() );
+                    this.player.setCovid(rand.nextDouble() < player.getTransmissionRate() * e.getTransmissionRate());
                 }
             }
 
@@ -122,9 +124,9 @@ public class Gameplay extends Screen {
         }
 
 
-        getCasper().getDrawBuffer().hudText("Score: " + Integer.toString(player.getScore()), 10, (int)fontSize);
-        getCasper().getDrawBuffer().hudText("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int)fontSize*2);
-        getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int)fontSize*3);
+        getCasper().getDrawBuffer().hudText("Score: " + Integer.toString(player.getScore()), 10, (int) fontSize);
+        getCasper().getDrawBuffer().hudText("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int) fontSize * 2);
+        getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int) fontSize * 3);
 
         if (getCasper().getManager().isPressed('w')) {
             if (!willCollide(player.simulateMove("up"))) {
