@@ -25,8 +25,7 @@ public class Candy extends BaseEntity {
         this.setPosY(random.nextInt(applet.height));
     }
 
-
-
+    
     @Override
     public void update() {
 

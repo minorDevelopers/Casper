@@ -7,9 +7,8 @@ import processing.core.PApplet;
 import java.awt.*;
 
 public class Player extends BaseEntity {
-    private static Player instance;
-
     private static final int PLAYER_MOVE_SPEED = 5;
+
     private int score;
 
     public Player(DrawBuffer mainInstance, String imageId) {
