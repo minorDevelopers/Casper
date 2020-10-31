@@ -19,6 +19,7 @@ public class NPC extends BaseEntity{
 
     public NPC(DrawBuffer mainInstance, int minTime, int maxTime) {
         super(mainInstance, ResourceManager.getInstance().getRandomImageID(), 130);
+
         this.isVisible = true;
         this.currentTime = (int)System.currentTimeMillis();
         this.lastTime = this.currentTime;
