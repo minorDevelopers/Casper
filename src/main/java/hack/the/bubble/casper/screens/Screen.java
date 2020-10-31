@@ -14,7 +14,7 @@ public abstract class Screen {
         return casper;
     }
 
-    public abstract void setup();
+    public abstract void setup(Object payload);
 
     public abstract void clicked(int x, int y);
 
