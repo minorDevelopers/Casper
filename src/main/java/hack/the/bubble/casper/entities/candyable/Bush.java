@@ -21,6 +21,8 @@ public class Bush extends CandyableEntity {
         } else {
             x = random.nextInt(1920 * 3); // First three columns
         }
+        x = x % 100 + 50 * (random.nextInt(2) - 1);
+        y = y % 100 + 50 * (random.nextInt(2) - 1);
 
         return new Coordinate(x, y);
     }

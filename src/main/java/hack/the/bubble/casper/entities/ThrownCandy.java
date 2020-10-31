@@ -13,19 +13,19 @@ public class ThrownCandy extends BaseEntity{
     private int lastTime;
     private int currentTime;
     private int totalTime;
-    private int timeToCross;
+    private float timeToCross;
     private static String candyStrings[] = {"candy.lolly", "candy.wrapped", "candy.corn"};
 
     private Coordinate startPos, endPos;
 
     public ThrownCandy(DrawBuffer instance, BaseEntity startEntity, BaseEntity targetEntity) {
-        super(instance, candyStrings[rd.nextInt(candyStrings.length)], 60);
+        super(instance, candyStrings[rd.nextInt(candyStrings.length)], 40);
 
         this.isVisible = true;
         this.currentTime = (int)System.currentTimeMillis();
         this.lastTime = this.currentTime;
         this.totalTime = 0;
-        this.timeToCross = 1;
+        this.timeToCross = 0.5f;
         this.hasCovid = false;
         this.setEntityType("ThrownCandy");
         this.transmissionRate = 0;
@@ -48,8 +48,8 @@ public class ThrownCandy extends BaseEntity{
             this.isVisible = false;
             return;
         }
-        this.setPosX(linearInterpolate(this.startPos.getX(), this.startPos.getY(), percentage));
-        this.setPosY(linearInterpolate(this.endPos.getX(), this.endPos.getY(), percentage));
+        this.setPosX(linearInterpolate(this.startPos.getX(), this.endPos.getX(), percentage));
+        this.setPosY(linearInterpolate(this.startPos.getY(), this.endPos.getY(), percentage));
     }
 
     @Override
@@ -60,4 +60,5 @@ public class ThrownCandy extends BaseEntity{
     private int linearInterpolate(int y1, int y2, float mu) {
         return Math.max((int)((float)y1 * (1 - mu) + (float) y2 * mu), y2);
     }
+
 }

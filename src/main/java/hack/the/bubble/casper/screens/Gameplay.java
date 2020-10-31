@@ -80,7 +80,7 @@ public class Gameplay extends Screen {
             entities.add(new Candy(getCasper().getDrawBuffer()));
         }
         for (int i = 0; i < npcCount; i++) {
-            entities.add(new NPC(getCasper().getDrawBuffer(), 5, 10));
+            entities.add(new NPC(getCasper().getDrawBuffer(), 15, 45));
         }
         for (int i = 0; i < foliageCount; i++) {
             entities.add(new Bush(getCasper().getDrawBuffer(), Bush.generateValidBushCoordinate()));

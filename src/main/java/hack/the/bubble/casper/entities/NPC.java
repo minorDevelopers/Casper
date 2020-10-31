@@ -71,6 +71,7 @@ public class NPC extends BaseEntity{
     public void onClicked(Player player, Collection<BaseEntity> newEntitiesList) {
         // Check if within certain distance of player
         if (this.getDistanceFrom(player) < 400 && player.getScore() > 0) {
+            newEntitiesList.add(new ThrownCandy(this.mainInstance, player, this));
             // Update time to get back based on previous speed
             float originalDist = distToTravel(new Coordinate(startX, startY), new Coordinate(endX, endY));
             float originalSpeed = originalDist / timeToCross;
@@ -86,7 +87,6 @@ public class NPC extends BaseEntity{
             this.lastTime = this.currentTime;
             this.totalTime = 0;
             player.setScore(player.getScore() - 1);
-            newEntitiesList.add(new ThrownCandy(this.mainInstance, player, this));
         }
 
     }
