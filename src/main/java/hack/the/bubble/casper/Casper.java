@@ -1,5 +1,6 @@
 package hack.the.bubble.casper;
 
+import hack.the.bubble.casper.entities.Player;
 import hack.the.bubble.casper.interaction.KeyManager;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
@@ -9,9 +10,17 @@ import java.io.IOException;
 public class Casper extends PApplet {
 
     private KeyManager manager = new KeyManager();
+    private Player player;
+
+    /*
+        Player stuff, move to separate class?
+     */
+    private int playerX = 40, playerY = 40;
+    private final int PLAYER_MOVE_SPEED = 10;
 
     @Override
     public void settings() {
+        this.player = new Player();
         size(720, 480);
     }
 
@@ -24,12 +33,21 @@ public class Casper extends PApplet {
     public void draw() {
         background(0xff0ff);
         text("Hello, World!", width / 2, height / 2);
-        image(ResourceManager.getInstance().getImage("player-ghost"), 40, 40, 50, ResourceManager.getInstance().getScaledHeight("player-ghost", 50));
-        if (manager.isPressed('a')) {
-            text("A pressed", 50, 50);
+        //image(ResourceManager.getInstance().getImage("player-ghost"), playerX, playerY, 50, ResourceManager.getInstance().getScaledHeight("player-ghost", 50));
+        player.draw(this);
+
+
+        if (manager.isPressed('w')) {
+            player.setPosY(player.getPosY() + 10);
         }
-        if (manager.isPressed('b')) {
-            text("B pressed", 50, 60);
+        if (manager.isPressed('a')) {
+            playerX -= PLAYER_MOVE_SPEED;
+        }
+        if (manager.isPressed('s')) {
+            playerY += PLAYER_MOVE_SPEED;
+        }
+        if (manager.isPressed('d')) {
+            playerX += PLAYER_MOVE_SPEED;
         }
     }
 
@@ -43,6 +61,7 @@ public class Casper extends PApplet {
             e.printStackTrace();
         }
         PApplet.main(new String[]{"hack.the.bubble.casper.Casper"});
+
     }
 
 }

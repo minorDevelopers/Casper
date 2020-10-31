@@ -1,11 +1,6 @@
 package hack.the.bubble.casper.entities;
 
-
-import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.entities.Creature;
-import de.gurkenlabs.litiengine.input.PlatformingMovementController;
-
-public class Player extends Creature implements IUpdateable {
+public class Player extends BaseEntity {
     private static Player instance;
 
     public static Player instance() {
@@ -15,9 +10,16 @@ public class Player extends Creature implements IUpdateable {
         return instance;
     }
 
-    private Player() {
-        super("pumpkin");
-        this.addController(new PlatformingMovementController<>(this));
+    public Player() {
+        this.imageId = "player-ghost";
+        this.pixWidth = 50;
+        this.setPosX(10);
+        this.setPosY(10);
+    }
+
+    @Override
+    public void onCollide() {
+
     }
 
     @Override
