@@ -60,8 +60,6 @@ public class NPC extends BaseEntity{
         }
         this.setPosX(linearInterpolate(startX, endX, percentage));
         this.setPosY(linearInterpolate(startY, endY, percentage));
-        System.out.println("Pos x: " + this.getPosX());
-        System.out.println("Pos x: " + this.getPosY());
     }
 
     private int linearInterpolate(int y1, int y2, float mu) {
