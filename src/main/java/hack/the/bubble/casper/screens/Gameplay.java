@@ -2,6 +2,7 @@ package hack.the.bubble.casper.screens;
 
 import hack.the.bubble.casper.Casper;
 import hack.the.bubble.casper.Coordinate;
+import hack.the.bubble.casper.ResourceManager;
 import hack.the.bubble.casper.entities.BaseEntity;
 import hack.the.bubble.casper.entities.Candy;
 import hack.the.bubble.casper.entities.NPC;
@@ -11,6 +12,7 @@ import hack.the.bubble.casper.entities.Wall;
 import hack.the.bubble.casper.entities.candyable.Bush;
 import hack.the.bubble.casper.entities.candyable.Pumpkin;
 import hack.the.bubble.casper.entities.candyable.Tree;
+import processing.core.PImage;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -26,6 +28,8 @@ public class Gameplay extends Screen {
     private static double COVID_DISTANCE = 100.0;
     private static int MAX_COVID_COOLDOWN = 100; // number of updates/Player.COVID_COOLDOWN_RATE
     private Random rand = new Random();
+    private PImage scaledFloor;
+    private static final int TILE_SIZE = 120;
 
     public Gameplay(Casper casper) {
         super(casper);
@@ -33,6 +37,9 @@ public class Gameplay extends Screen {
 
     @Override
     public void setup(Object payload) {
+        scaledFloor = ResourceManager.getInstance().getImage("floor-grass").copy();
+        scaledFloor.resize(TILE_SIZE, TILE_SIZE);
+
         this.player = new Player(getCasper().getDrawBuffer(), "player-male");
 
         this.player.setPosX((int) (1920 * 1.5));
@@ -64,7 +71,9 @@ public class Gameplay extends Screen {
         Coordinate coordinate = getCasper().getDrawBuffer().convertScreenToGameCoordinates(x, y);
         entities.stream()
                 .filter((entity) -> entity.intersects(coordinate.getX(), coordinate.getY()))
-                .forEach(e->{e.onClicked(this.player);});
+                .forEach(e -> {
+                    e.onClicked(this.player);
+                });
     }
 
     public boolean willCollide(Rectangle hitbox) {
@@ -75,11 +84,20 @@ public class Gameplay extends Screen {
                 .orElse(false);
     }
 
+    public void drawFloor() {
+        for (int x = 0; x < (1920 * 3) / TILE_SIZE; x++) {
+            for (int y = 0; y < (1920 * 3) / TILE_SIZE; y++) {
+                getCasper().getDrawBuffer().image(scaledFloor, x * TILE_SIZE, y * TILE_SIZE);
+            }
+        }
+    }
+
     @Override
     public void render() {
+        drawFloor();
+
         float fontSize = 20f;
         getCasper().getDrawBuffer().textSize((int) fontSize);
-
         getCasper().getDrawBuffer().rect(0, 0, 5, 5);
 
         // Entity Update
