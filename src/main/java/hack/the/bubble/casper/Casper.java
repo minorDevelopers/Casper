@@ -67,7 +67,13 @@ public class Casper extends PApplet {
         this.entities.forEach(e -> {
             e.update();
             e.draw();
+            if(e.intersects(this.player)) {
+                player.onCollide(e);
+                e.onCollide(this.player);
+            }
         });
+
+        text("Score: " + Integer.toString(player.getScore()), 10, 10);
 
         if (manager.isPressed('w')) {
             player.move("up");

@@ -14,6 +14,8 @@ public abstract class BaseEntity {
     protected boolean isVisible;
     protected int pixWidth, pixHeight;
     protected DrawBuffer mainInstance;
+    private String entityType;
+
 
     public Rectangle hitbox() {
         return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
@@ -27,13 +29,14 @@ public abstract class BaseEntity {
         this.isVisible = true;
         this.pixWidth = pixWidth;
         this.pixHeight = ResourceManager.getInstance().getScaledHeight(imageId, pixWidth);
+        this.entityType = "none";
     }
 
 
     /*
         Abstract functions
      */
-    public abstract void onCollide();
+    public abstract void onCollide(BaseEntity e);
     public abstract void update();
 
     public boolean intersects(BaseEntity e) {
@@ -41,12 +44,14 @@ public abstract class BaseEntity {
     }
 
     public void draw() {
-        if (isVisible)
+
+        if(this.isVisible) {
             this.mainInstance.image(
-                ResourceManager.getInstance().getImage(imageId),
-                this.posX, this.posY,
-                this.pixWidth, ResourceManager.getInstance().getScaledHeight(imageId, this.pixWidth)
+                    ResourceManager.getInstance().getImage(imageId),
+                    this.posX, this.posY,
+                    this.pixWidth, this.pixHeight
             );
+        }
     }
 
     public void move(String direction) {
@@ -75,4 +80,19 @@ public abstract class BaseEntity {
         this.posY = posY;
     }
 
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
+    public String getEntityType() {
+        return entityType;
+    }
+
+    public void setEntityType(String entityType) {
+        this.entityType = entityType;
+    }
 }

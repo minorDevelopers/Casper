@@ -42,7 +42,7 @@ public class NPC extends BaseEntity{
     }
 
     @Override
-    public void onCollide() {
+    public void onCollide(BaseEntity e) {
 
     }
 

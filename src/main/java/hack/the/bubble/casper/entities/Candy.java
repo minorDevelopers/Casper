@@ -15,29 +15,17 @@ public class Candy extends BaseEntity {
     };
     private static final Random random = new Random();
 
-    private final String sprite;
-    private boolean isVisible = true;
-
     public Candy(DrawBuffer applet) {
-        super(applet, "candy.wrapped", 50);
-        this.sprite = IMAGE_OPTIONS[random.nextInt(IMAGE_OPTIONS.length)];
+        super(applet, IMAGE_OPTIONS[random.nextInt(IMAGE_OPTIONS.length)], 30);
+
+        this.setEntityType("candy");
 
         // TODO: generate positions based on map
         this.setPosX(random.nextInt(applet.width));
         this.setPosY(random.nextInt(applet.height));
     }
 
-    @Override
-    public void draw() {
-        if (!isVisible) return;
-        this.mainInstance.image(
-                ResourceManager.getInstance().getImage(sprite),
-                this.getPosX(),
-                this.getPosY(),
-                30,
-                ResourceManager.getInstance().getScaledHeight(this.sprite, 30)
-        );
-    }
+
 
     @Override
     public void update() {
@@ -45,7 +33,7 @@ public class Candy extends BaseEntity {
     }
 
     @Override
-    public void onCollide() {
-        isVisible = false;
+    public void onCollide(BaseEntity e) {
+        this.setVisible(false);
     }
 }
