@@ -59,7 +59,7 @@ public class DrawBuffer {
     }
 
     public void image(PImage image, int x, int y, int width, int height) {
-        parent.text("(" + xOffset + ", " + yOffset + ")", 30, 30);
+        //parent.text("(" + xOffset + ", " + yOffset + ")", 30, 30);
 
         double newWidth = width * scale;
         double newHeight = height * scale;

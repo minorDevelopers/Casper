@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
@@ -15,6 +16,8 @@ public abstract class BaseEntity {
     protected int pixWidth, pixHeight;
     protected DrawBuffer mainInstance;
     private String entityType;
+    protected boolean hasCovid;
+    protected double transmissionRate;
 
 
     public BaseEntity(DrawBuffer instance, String imageId, int pixWidth) {
@@ -27,6 +30,8 @@ public abstract class BaseEntity {
         if (imageId == null) this.pixHeight = pixWidth;
         else this.pixHeight = ResourceManager.getInstance().getScaledHeight(imageId, pixWidth);
         this.entityType = "none";
+        this.hasCovid = false;
+        this.transmissionRate = 1.0;
     }
 
 
@@ -109,6 +114,21 @@ public abstract class BaseEntity {
         return position;
     }
 
+
+    public Coordinate getCenter() {
+        return new Coordinate( this.posX+this.pixWidth/2, this.posY+this.pixHeight/2 );
+    }
+
+    public float getDistanceFrom(BaseEntity e) {
+        Coordinate a, b;
+        a = e.getCenter();
+        b = this.getCenter();
+        int dx = a.getX() - b.getX();
+        int dy = a.getY() - b.getY();
+        double diff = Math.pow(dx, 2.f) + Math.pow(dy, 2.f);
+        return (float)Math.sqrt( diff );
+    }
+
     // Returns a Rectangle object surrounding the entity at its position
     public Rectangle hitbox() {
         return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
@@ -148,5 +168,17 @@ public abstract class BaseEntity {
 
     public void setEntityType(String entityType) {
         this.entityType = entityType;
+    }
+
+    public boolean hasCovid() {
+        return hasCovid;
+    }
+
+    public void setCovid(boolean b) {
+        this.hasCovid = b;
+    }
+
+    public double getTransmissionRate() {
+        return this.transmissionRate;
     }
 }

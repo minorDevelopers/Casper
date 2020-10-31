@@ -8,7 +8,7 @@ import java.util.Random;
 public class NPC extends BaseEntity{
     static Random rd = new Random();
 
-    private boolean hasCovid;
+
     private int lastTime;
     private int currentTime;
     private int totalTime;
@@ -27,7 +27,8 @@ public class NPC extends BaseEntity{
         this.timeToCross = minTime + rd.nextInt(maxTime - minTime);
         this.hasCovid = rd.nextBoolean();
         this.setEntityType("NPC");
-        setStartEndLocation(1900, 1000);
+        this.transmissionRate = 0.8;
+        setStartEndLocation(1900 * 3, 1080 * 2);
     }
 
     private void setStartEndLocation(int screenWidth, int screenHeight) {
