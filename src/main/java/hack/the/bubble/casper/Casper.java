@@ -1,12 +1,14 @@
 package hack.the.bubble.casper;
 
+import hack.the.bubble.casper.interaction.KeyManager;
 import processing.core.PApplet;
-import processing.core.PImage;
+import processing.event.KeyEvent;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Casper extends PApplet {
+
+    private KeyManager manager = new KeyManager();
 
     @Override
     public void settings() {
@@ -14,10 +16,21 @@ public class Casper extends PApplet {
     }
 
     @Override
+    protected void handleKeyEvent(KeyEvent event) {
+        manager.handleKey(event);
+    }
+
+    @Override
     public void draw() {
         background(0xff0ff);
         text("Hello, World!", width / 2, height / 2);
-        image(ResourceManager.getInstance().getImage("player-ghost"), 40, 40, 400, ResourceManager.getInstance().getScaledHeight("player-ghost", 400));
+        image(ResourceManager.getInstance().getImage("player-ghost"), 40, 40, 50, ResourceManager.getInstance().getScaledHeight("player-ghost", 50));
+        if (manager.isPressed('a')) {
+            text("A pressed", 50, 50);
+        }
+        if (manager.isPressed('b')) {
+            text("B pressed", 50, 60);
+        }
     }
 
     public static void main(String[] args) {
