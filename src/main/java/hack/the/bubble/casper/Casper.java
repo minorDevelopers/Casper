@@ -31,7 +31,7 @@ public class Casper extends PApplet {
     public void settings() {
         size(1900, 1000);
         drawBuffer = new DrawBuffer(this, this.width, this.height);
-        updateScreen(new MenuScreen(this));
+        updateScreen(new MenuScreen(this), null);
         //updateScreen(new Gameplay(this));
     }
 
@@ -72,10 +72,10 @@ public class Casper extends PApplet {
 
     }
 
-    public void updateScreen(Screen screen) {
+    public void updateScreen(Screen screen, Object payload) {
         if (activeScreen != null)
             activeScreen.dispose();
-        screen.setup();
+        screen.setup(payload);
         this.activeScreen = screen;
     }
 

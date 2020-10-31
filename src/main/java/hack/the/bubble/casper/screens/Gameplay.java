@@ -32,7 +32,7 @@ public class Gameplay extends Screen {
     }
 
     @Override
-    public void setup() {
+    public void setup(Object payload) {
         this.player = new Player(getCasper().getDrawBuffer(), "player-male");
 
         this.player.setPosX((int) (1920 * 1.5));
