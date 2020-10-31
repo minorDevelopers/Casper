@@ -29,7 +29,7 @@ public class Tree extends CandyableEntity {
         super(instance, "outside.tree", 120);
         setPosX(coordinate.getX());
         setPosY(coordinate.getY());
-        setEntityType("tree.solid");
+        setEntityType("tree");
     }
 
     @Override

@@ -23,11 +23,11 @@ public class LevelScreen extends Screen {
     public void clicked(int x, int y) {
         if (!stats.isHasCOVID()) {
             getCasper().updateScreen(new Gameplay(getCasper()), new GameplayConfig(
-                    (int) (this.stats.getConfig().getCandyLimit() * 1.5),
+                    (int) Math.ceil(this.stats.getConfig().getCandyLimit() * 1.5),
                     this.stats.getConfig().getLevel() + 1,
-                    (int) (this.stats.getConfig().getNpcCount() * 1.5),
-                    (int) (this.stats.getConfig().getSpiderCount() * 1.5),
-                    (int) (this.stats.getConfig().getFoliageCount() * 1.5)
+                    (int) Math.ceil(this.stats.getConfig().getNpcCount() * 1.5),
+                    (int) Math.ceil(this.stats.getConfig().getSpiderCount() * 1.5),
+                    (int) Math.ceil(this.stats.getConfig().getFoliageCount() * 1.5)
             ));
         } else {
             getCasper().updateScreen(new MenuScreen(getCasper()), null);
