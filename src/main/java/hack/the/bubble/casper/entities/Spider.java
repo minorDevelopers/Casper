@@ -43,6 +43,8 @@ public class Spider extends BaseEntity{
     }
 
     @Override
-    public void onClicked() {
+    public void onClicked(Player player) {
+        
+        this.isVisible = false;
     }
 }

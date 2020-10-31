@@ -52,6 +52,9 @@ public class Gameplay extends Screen {
             entities.add(new Tree(getCasper().getDrawBuffer(), Tree.generateValidTreeCoordinate()));
             entities.add(new Pumpkin(getCasper().getDrawBuffer(), Pumpkin.generateValidPumpkinCoordinate()));
         }
+        for (int i = 0; i < 30; i++) {
+            entities.add(new Spider(getCasper().getDrawBuffer()));
+        }
     }
 
     @Override
@@ -59,7 +62,7 @@ public class Gameplay extends Screen {
         Coordinate coordinate = getCasper().getDrawBuffer().convertScreenToGameCoordinates(x, y);
         entities.stream()
                 .filter((entity) -> entity.intersects(coordinate.getX(), coordinate.getY()))
-                .forEach(BaseEntity::onClicked);
+                .forEach(e->{e.onClicked(this.player);});
     }
 
     public boolean willCollide(Rectangle hitbox) {

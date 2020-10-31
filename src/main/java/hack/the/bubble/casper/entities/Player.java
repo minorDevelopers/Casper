@@ -36,7 +36,7 @@ public class Player extends BaseEntity {
     }
 
     @Override
-    public void onClicked() {
+    public void onClicked(Player player) {
         this.hasCovid = false;
     }
 

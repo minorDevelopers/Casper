@@ -42,7 +42,7 @@ public abstract class BaseEntity {
 
     public abstract void update();
 
-    public abstract void onClicked();
+    public abstract void onClicked(Player player);
 
 
 

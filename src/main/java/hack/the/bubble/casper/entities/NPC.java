@@ -65,7 +65,7 @@ public class NPC extends BaseEntity{
     }
 
     @Override
-    public void onClicked() {
+    public void onClicked(Player player) {
         // Check if within certain distance of player
         // Update time to get back based on previous speed
 

@@ -31,7 +31,7 @@ public class Candy extends BaseEntity {
     }
 
     @Override
-    public void onClicked() {
+    public void onClicked(Player player) {
         // Possibly make it so you have to click candy to get points?
     }
 

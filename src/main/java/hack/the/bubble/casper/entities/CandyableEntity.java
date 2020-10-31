@@ -28,7 +28,7 @@ public abstract class CandyableEntity extends BaseEntity {
     }
 
     @Override
-    public void onClicked() {
+    public void onClicked(Player player) {
         removeCandy();
         // TODO: increment score
     }
