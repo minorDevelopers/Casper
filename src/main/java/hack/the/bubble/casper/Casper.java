@@ -6,6 +6,7 @@ import hack.the.bubble.casper.entities.candyable.Pumpkin;
 import hack.the.bubble.casper.entities.candyable.Tree;
 import hack.the.bubble.casper.interaction.KeyManager;
 import hack.the.bubble.casper.screens.Gameplay;
+import hack.the.bubble.casper.screens.MenuScreen;
 import hack.the.bubble.casper.screens.Screen;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
@@ -30,8 +31,8 @@ public class Casper extends PApplet {
     public void settings() {
         size(1900, 1000);
         drawBuffer = new DrawBuffer(this, this.width, this.height);
-
-        updateScreen(new Gameplay(this));
+        updateScreen(new MenuScreen(this));
+        //updateScreen(new Gameplay(this));
     }
 
     @Override
@@ -107,6 +108,10 @@ public class Casper extends PApplet {
 
 
             ResourceManager.getInstance().registerSprite("spider", Casper.class.getResource("/Spider.png"));
+
+            ResourceManager.getInstance().registerSprite("menuScreen", Casper.class.getResource("/LoadScreens/LoadScreen.png"));
+            ResourceManager.getInstance().registerSprite("BetweenLevelScreen", Casper.class.getResource("/LoadScreens/EmptyScreen.png"));
+
 
             ResourceManager.getInstance().registerSpriteSheet("floor-indoor", Casper.class.getResource("/IndoorFloor.png"), 1024, 1024, 0, 0);
         } catch (IOException e) {
