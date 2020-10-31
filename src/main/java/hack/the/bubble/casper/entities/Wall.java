@@ -28,7 +28,6 @@ public class Wall extends BaseEntity{
 
     @Override
     public void onCollide(BaseEntity e) {
-        System.out.println("Coll?");
     }
 
     @Override

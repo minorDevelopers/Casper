@@ -2,7 +2,6 @@ package hack.the.bubble.casper.entities;
 
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
-import processing.core.PApplet;
 
 import java.util.Random;
 
