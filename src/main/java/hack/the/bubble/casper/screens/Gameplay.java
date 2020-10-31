@@ -2,6 +2,7 @@ package hack.the.bubble.casper.screens;
 
 import hack.the.bubble.casper.Casper;
 import hack.the.bubble.casper.Coordinate;
+import hack.the.bubble.casper.GameplayConfig;
 import hack.the.bubble.casper.LevelStats;
 import hack.the.bubble.casper.ResourceManager;
 import hack.the.bubble.casper.entities.BaseEntity;
@@ -34,6 +35,8 @@ public class Gameplay extends Screen {
     private int candyLimit;
     private int npcCount, candyCount, spiderCount, foliageCount;
     private boolean shouldQuit = false;
+    private int level;
+    private GameplayConfig conf;
 
     public Gameplay(Casper casper) {
         super(casper);
@@ -47,6 +50,18 @@ public class Gameplay extends Screen {
 
     @Override
     public void setup(Object payload) {
+        GameplayConfig conf = (GameplayConfig) payload;
+        this.conf = conf;
+        this.candyLimit = conf.getCandyLimit();
+        this.npcCount = conf.getNpcCount();
+        this.spiderCount = conf.getSpiderCount();
+        this.foliageCount = conf.getFoliageCount();
+        this.level = conf.getLevel();
+
+        while(this.candyCount < this.candyLimit){
+            this.candyCount += rand.nextInt(30);
+        }
+
         scaledFloor = ResourceManager.getInstance().getImage("floor-grass").copy();
         scaledFloor.resize(TILE_SIZE, TILE_SIZE);
 
@@ -160,7 +175,8 @@ public class Gameplay extends Screen {
         //getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int)fontSize*3);
 
         if(shouldQuit) {
-            getCasper().updateScreen( new MenuScreen(getCasper()), null );
+            getCasper().updateScreen(new LevelScreen(getCasper()), new LevelStats(candyCount, level + 1, player.hasCovid(), conf));
+//            getCasper().updateScreen( new MenuScreen(getCasper()), null );
         }
 
         if (getCasper().getManager().isPressed('w')) {

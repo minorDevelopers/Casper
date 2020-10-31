@@ -5,6 +5,7 @@ public class LevelStats {
     int candyCount;
     int level;
     boolean hasCOVID;
+    private GameplayConfig config;
 
     public int getCandyCount() {
         return candyCount;
@@ -30,12 +31,14 @@ public class LevelStats {
         this.hasCOVID = hasCOVID;
     }
 
-    public LevelStats(int candyCount, int level, boolean hasCOVID) {
+    public GameplayConfig getConfig() {
+        return config;
+    }
+
+    public LevelStats(int candyCount, int level, boolean hasCOVID, GameplayConfig config) {
         this.candyCount = candyCount;
         this.level = level;
         this.hasCOVID = hasCOVID;
+        this.config = config;
     }
-
-
-
 }
