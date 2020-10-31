@@ -6,6 +6,7 @@ import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
 
 import java.awt.*;
+import java.math.*;
 
 public abstract class BaseEntity {
 
@@ -131,6 +132,7 @@ public abstract class BaseEntity {
     public Rectangle hitbox() {
         return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
     }
+
 
     /*
         Getters and setters

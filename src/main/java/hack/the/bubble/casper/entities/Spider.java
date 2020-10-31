@@ -44,7 +44,10 @@ public class Spider extends BaseEntity{
 
     @Override
     public void onClicked(Player player) {
-        
-        this.isVisible = false;
+        float distFrom = this.getDistanceFrom(player);
+        if (distFrom < 200) {
+            player.setScore(player.getScore() + 1);
+            this.isVisible = false;
+        }
     }
 }
