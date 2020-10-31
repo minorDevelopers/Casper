@@ -7,8 +7,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,6 +28,7 @@ public class ResourceManager {
      * Contains a cache of all currently loaded image files associated with their image IDs
      */
     private final Map<String, PImage> imageSet = new ConcurrentHashMap<>();
+    private final Random random = new Random();
 
     /**
      * Registers a sprite from file path into the image cache. Throws an IllegalArgumentException if sprite name already
@@ -111,6 +115,25 @@ public class ResourceManager {
         PImage img = this.imageSet.get(id);
         double scale = (double) height / (double) img.height;
         return (int) (img.width * scale);
+    }
+
+    /**
+     * Returns the set of currently loaded image ids
+     *
+     * @return set of image ids, unique as it is backed by a map
+     */
+    public Set<String> getLoadedImageIDs() {
+        return this.imageSet.keySet();
+    }
+
+    /**
+     * Picks a random image ID from the set of loaded IDs
+     *
+     * @return a randomly selected loaded ID
+     */
+    public String getRandomImageID() {
+        ArrayList<String> arrayList = new ArrayList<>(this.getLoadedImageIDs());
+        return arrayList.get(random.nextInt(arrayList.size()));
     }
 
 }
