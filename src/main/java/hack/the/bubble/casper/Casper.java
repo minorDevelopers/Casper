@@ -22,7 +22,8 @@ public class Casper extends PApplet {
     private Collection<BaseEntity> entities = new ArrayList<>();
     private DrawBuffer drawBuffer;
 
-
+    private static int worldHeight = 1080 * 3;
+    private static int worldWidth = 1920 * 3;
 
     @Override
     public void settings() {
@@ -73,7 +74,7 @@ public class Casper extends PApplet {
         textSize(fontSize);
         fill(230, 230, 230);
 
-
+        // Entity Update
         this.entities.forEach(e -> {
             e.update();
             e.draw();
@@ -83,6 +84,7 @@ public class Casper extends PApplet {
             }
         });
 
+        // Entity Removal
         Iterator<BaseEntity> iter = entities.iterator();
         int count = 0;
         while (iter.hasNext()) {
