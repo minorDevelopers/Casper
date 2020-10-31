@@ -54,6 +54,16 @@ public class Casper extends PApplet {
     @Override
     protected void handleMouseEvent(MouseEvent event) {
         super.handleMouseEvent(event);
+//        System.out.println(event.getButton());
+//        System.out.println(event.getCount());
+//        System.out.println(event.getAction());
+//        System.out.println();
+        if (event.getAction() == MouseEvent.PRESS && event.getButton() == 37) {
+            Coordinate coordinate = drawBuffer.convertScreenToGameCoordinates(event.getX(), event.getY());
+            entities.stream()
+                    .filter((entity) -> entity.intersects(coordinate.getX(), coordinate.getY()))
+                    .forEach(BaseEntity::onClicked);
+        }
     }
 
     @Override
