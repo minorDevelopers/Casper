@@ -18,8 +18,14 @@ public abstract class BaseEntity {
         return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
     }
 
-    public BaseEntity(PApplet instance) {
+    public BaseEntity(PApplet instance, String imageId, int pixWidth) {
         this.mainInstance = instance;
+        this.posX = instance.width/2;
+        this.posY = instance.height/2;
+        this.imageId = imageId;
+        this.isVisible = true;
+        this.pixWidth = pixWidth;
+        this.pixHeight = ResourceManager.getInstance().getScaledHeight(imageId, pixWidth);
     }
 
 

@@ -48,10 +48,15 @@ public class Casper extends PApplet {
     @Override
     public void draw() {
         int bc = 0xff0ff;
-        if (player.intersects(player2)) bc = 0xff0000;
         background(bc);
 
-        this.entities.forEach(BaseEntity::draw);
+        //this.entities.forEach(BaseEntity::update);
+        //this.entities.forEach(BaseEntity::draw);
+
+        this.entities.forEach(e -> {
+            e.update();
+            e.draw();
+        });
 
         if (manager.isPressed('w')) {
             player.move("up");

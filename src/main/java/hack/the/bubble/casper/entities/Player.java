@@ -11,12 +11,7 @@ public class Player extends BaseEntity {
     private static final int PLAYER_MOVE_SPEED = 5;
 
     public Player(PApplet mainInstance, String imageId) {
-        super(mainInstance);
-        this.imageId = imageId;
-        this.pixWidth = 50;
-        this.pixHeight = ResourceManager.getInstance().getScaledHeight(this.imageId, this.pixWidth);
-        this.setPosX(10);
-        this.setPosY(10);
+        super(mainInstance, imageId, 130);
         this.moveSpeed = PLAYER_MOVE_SPEED;
     }
 

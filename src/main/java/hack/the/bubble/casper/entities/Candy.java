@@ -18,7 +18,7 @@ public class Candy extends BaseEntity {
     private boolean isVisible = true;
 
     public Candy(PApplet applet) {
-        super(applet);
+        super(applet, "candy.wrapped", 50);
         this.sprite = IMAGE_OPTIONS[random.nextInt(IMAGE_OPTIONS.length)];
 
         // TODO: generate positions based on map
