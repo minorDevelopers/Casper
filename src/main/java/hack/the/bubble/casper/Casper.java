@@ -75,6 +75,10 @@ public class Casper extends PApplet {
     public void updateScreen(Screen screen, Object payload) {
         if (activeScreen != null)
             activeScreen.dispose();
+
+        this.drawBuffer.offset(0, 0);
+        this.drawBuffer.setScale(1);
+
         screen.setup(payload);
         this.activeScreen = screen;
     }
@@ -114,6 +118,7 @@ public class Casper extends PApplet {
 
 
             ResourceManager.getInstance().registerSpriteSheet("floor-indoor", Casper.class.getResource("/IndoorFloor.png"), 1024, 1024, 0, 0);
+            ResourceManager.getInstance().registerSprite("floor-grass", Casper.class.getResource("/Grass.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
