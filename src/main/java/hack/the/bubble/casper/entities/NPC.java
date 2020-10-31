@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
@@ -66,7 +67,6 @@ public class NPC extends BaseEntity{
     @Override
     public void onClicked() {
         // Check if within certain distance of player
-
         // Update time to get back based on previous speed
 
         // If so then set end coordinates to start coordinates

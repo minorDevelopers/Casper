@@ -44,6 +44,5 @@ public class Spider extends BaseEntity{
 
     @Override
     public void onClicked() {
-        
     }
 }
