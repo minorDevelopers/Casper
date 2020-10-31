@@ -1,6 +1,7 @@
 package hack.the.bubble.casper.screens;
 
 import hack.the.bubble.casper.Casper;
+import hack.the.bubble.casper.GameplayConfig;
 import hack.the.bubble.casper.ResourceManager;
 
 public class MenuScreen extends Screen{
@@ -17,7 +18,13 @@ public class MenuScreen extends Screen{
 
     @Override
     public void clicked(int x, int y) {
-        this.getCasper().updateScreen(new Gameplay(getCasper()), null);
+        this.getCasper().updateScreen(new Gameplay(getCasper()), new GameplayConfig(
+                1,
+                1,
+                6,
+                6,
+                50
+        ));
     }
 
     @Override
