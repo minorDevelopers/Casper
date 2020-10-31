@@ -38,9 +38,16 @@ public abstract class BaseEntity {
      */
     public abstract void onCollide(BaseEntity e);
     public abstract void update();
+    public void onClicked(){
+
+    };
 
     public boolean intersects(BaseEntity e) {
         return e.hitbox().intersects(this.hitbox());
+    }
+
+    public boolean intersects(int x, int y){
+        return this.hitbox().intersects(x, y, 1, 1);
     }
 
     public void draw() {
