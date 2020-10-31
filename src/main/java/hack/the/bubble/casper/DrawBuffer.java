@@ -9,6 +9,7 @@ public class DrawBuffer {
 
     private double xOffset = 0;
     private double yOffset = 0;
+
     private double scale = 1;
 
     public int width;

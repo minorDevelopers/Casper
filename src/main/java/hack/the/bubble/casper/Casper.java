@@ -150,7 +150,6 @@ public class Casper extends PApplet {
         if (manager.isPressed(java.awt.event.KeyEvent.VK_RIGHT)) {
             drawBuffer.offsetX(-CAMERA_MOVE_SPEED);
         }
-
     }
 
     public static void main(String[] args) {
