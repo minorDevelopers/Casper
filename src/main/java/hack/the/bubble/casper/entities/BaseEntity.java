@@ -123,10 +123,9 @@ public abstract class BaseEntity {
         Coordinate a, b;
         a = e.getCenter();
         b = this.getCenter();
-        float dx, dy;
-        dx = a.getX() - b.getX();
-        dy = a.getY() - b.getY();
-        float diff = (float)Math.pow(dx, 2.f) + (float)Math.pow(dy, 2.f);
+        int dx = a.getX() - b.getX();
+        int dy = a.getY() - b.getY();
+        double diff = Math.pow(dx, 2.f) + Math.pow(dy, 2.f);
         return (float)Math.sqrt( diff );
     }
 

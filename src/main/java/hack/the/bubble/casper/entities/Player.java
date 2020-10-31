@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Player extends BaseEntity {
     private static final int PLAYER_MOVE_SPEED = 5;
-    private static final int PLAYER_COVID_COOLDOWN_RATE = 1;
+    private static final int PLAYER_COVID_COOLDOWN_RATE = 0;
 
     private int score;
     private double transmissionRate;
@@ -27,12 +27,12 @@ public class Player extends BaseEntity {
     @Override
     public void onCollide(BaseEntity e) {
         if(e.getEntityType() == "candy" && e.isVisible()) this.score++;
-        if(!this.hasCovid()) this.setCovid(e.hasCovid());
+        //if(!this.hasCovid()) this.setCovid(e.hasCovid());
     }
 
     @Override
     public void update() {
-        this.covidCooldown -= PLAYER_COVID_COOLDOWN_RATE;
+        if(this.covidCooldown > PLAYER_COVID_COOLDOWN_RATE) this.covidCooldown -= PLAYER_COVID_COOLDOWN_RATE;
     }
 
     public static int getPlayerMoveSpeed() {
