@@ -40,10 +40,6 @@ public class Player extends BaseEntity {
         this.hasCovid = false;
     }
 
-    @Override
-    public void onClicked() {
-        // Nothing happens when you click on the player
-    }
 
     public static int getPlayerMoveSpeed() {
         return PLAYER_MOVE_SPEED;
