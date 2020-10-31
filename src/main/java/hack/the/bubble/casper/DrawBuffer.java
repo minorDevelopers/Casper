@@ -9,6 +9,7 @@ public class DrawBuffer {
 
     private double xOffset = 0;
     private double yOffset = 0;
+
     private double scale = 1;
 
     public int width;
@@ -74,6 +75,14 @@ public class DrawBuffer {
         if (newY > this.height) return;
 
         parent.image(image, (float) newX, (float) newY, (float) newWidth, (float) newHeight);
+    }
+
+    public void hudText(String text, int x, int y){
+        parent.text(text, x, y);
+    }
+
+    public void textSize(int font){
+        parent.textSize(font);
     }
 
     public void rect(int x, int y, int width, int height) {
