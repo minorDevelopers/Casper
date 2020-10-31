@@ -11,11 +11,13 @@ public class Casper extends PApplet {
 
     private KeyManager manager = new KeyManager();
     private Player player;
+    private Player player2;
 
 
     @Override
     public void settings() {
-        this.player = new Player(this);
+        this.player = new Player(this, "player-male");
+        this.player2 = new Player(this, "player-female");
         size(720, 480);
     }
 
@@ -26,21 +28,24 @@ public class Casper extends PApplet {
 
     @Override
     public void draw() {
-        background(0xff0ff);
+        int bc = 0xff0ff;
+        if(player.intersects(player2))  bc = 0xff0000;
+        background(bc);
         text("Hello, World!", width / 2, height / 2);
+
+        // Draw each entity
         player.draw();
+        player2.draw();
 
 
         if (manager.isPressed('w')) {
             player.move("up");
+        } else if (manager.isPressed('s')) {
+            player.move("down");
         }
         if (manager.isPressed('a')) {
             player.move("left");
-        }
-        if (manager.isPressed('s')) {
-            player.move("down");
-        }
-        if (manager.isPressed('d')) {
+        } else if (manager.isPressed('d')) {
             player.move("right");
         }
     }
@@ -53,7 +58,7 @@ public class Casper extends PApplet {
             ResourceManager.getInstance().registerSprite("player-vampire", Casper.class.getResource("/Vampire.png"));
             ResourceManager.getInstance().registerSprite("player-male", Casper.class.getResource("/Player_Male.png"));
             ResourceManager.getInstance().registerSprite("player-female", Casper.class.getResource("/Player_Female.png"));
-            ResourceManager.getInstance().registerSpriteSheet("floor-indoor", Casper.class.getResource("/IndoorFloors.png"), 1024, 1024, 0, 0);
+            ResourceManager.getInstance().registerSpriteSheet("floor-indoor", Casper.class.getResource("/IndoorFloor.png"), 1024, 1024, 0, 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
