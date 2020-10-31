@@ -12,15 +12,10 @@ public class Casper extends PApplet {
     private KeyManager manager = new KeyManager();
     private Player player;
 
-    /*
-        Player stuff, move to separate class?
-     */
-    private int playerX = 40, playerY = 40;
-    private final int PLAYER_MOVE_SPEED = 10;
 
     @Override
     public void settings() {
-        this.player = new Player();
+        this.player = new Player(this);
         size(720, 480);
     }
 
@@ -33,21 +28,20 @@ public class Casper extends PApplet {
     public void draw() {
         background(0xff0ff);
         text("Hello, World!", width / 2, height / 2);
-        //image(ResourceManager.getInstance().getImage("player-ghost"), playerX, playerY, 50, ResourceManager.getInstance().getScaledHeight("player-ghost", 50));
         player.draw();
 
 
         if (manager.isPressed('w')) {
-            player.setPosY(player.getPosY() + 10);
+            player.move("up");
         }
         if (manager.isPressed('a')) {
-            playerX -= PLAYER_MOVE_SPEED;
+            player.move("left");
         }
         if (manager.isPressed('s')) {
-            playerY += PLAYER_MOVE_SPEED;
+            player.move("down");
         }
         if (manager.isPressed('d')) {
-            playerX += PLAYER_MOVE_SPEED;
+            player.move("right");
         }
     }
 

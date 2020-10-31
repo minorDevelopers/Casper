@@ -24,6 +24,7 @@ hs_err_pid*
 
 # IDEA shiz
 .idea/
+Casper.iml
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains
