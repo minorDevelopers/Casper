@@ -2,6 +2,7 @@ package hack.the.bubble.casper;
 
 import hack.the.bubble.casper.entities.BaseEntity;
 import hack.the.bubble.casper.entities.Candy;
+import hack.the.bubble.casper.entities.NPC;
 import hack.the.bubble.casper.entities.Player;
 import hack.the.bubble.casper.interaction.KeyManager;
 import processing.core.PApplet;
@@ -16,9 +17,9 @@ public class Casper extends PApplet {
 
     private KeyManager manager = new KeyManager();
     private Player player;
+    private NPC npc;
     private Player player2;
     private Collection<BaseEntity> entities = new ArrayList<>();
-
 
     @Override
     public void settings() {

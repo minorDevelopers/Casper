@@ -10,7 +10,7 @@ public abstract class BaseEntity {
     private int posX, posY;
     protected int moveSpeed;
     protected String imageId;
-    private boolean isVisible;
+    protected boolean isVisible;
     protected int pixWidth, pixHeight;
     protected PApplet mainInstance;
 
@@ -40,11 +40,12 @@ public abstract class BaseEntity {
     }
 
     public void draw() {
-        this.mainInstance.image(
+        if (isVisible)
+            this.mainInstance.image(
                 ResourceManager.getInstance().getImage(imageId),
                 this.posX, this.posY,
                 this.pixWidth, ResourceManager.getInstance().getScaledHeight(imageId, this.pixWidth)
-        );
+            );
     }
 
     public void move(String direction) {
