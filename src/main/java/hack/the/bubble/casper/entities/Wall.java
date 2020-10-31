@@ -3,6 +3,7 @@ package hack.the.bubble.casper.entities;
 import hack.the.bubble.casper.DrawBuffer;
 
 import java.awt.Rectangle;
+import java.util.Collection;
 
 public class Wall extends BaseEntity{
 
@@ -36,7 +37,7 @@ public class Wall extends BaseEntity{
     }
 
     @Override
-    public void onClicked(Player player) {
+    public void onClicked(Player player, Collection<BaseEntity> entitiesList) {
 
     }
 

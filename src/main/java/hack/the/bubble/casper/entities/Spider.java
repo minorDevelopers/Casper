@@ -2,6 +2,8 @@ package hack.the.bubble.casper.entities;
 
 import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
+
+import java.util.Collection;
 import java.util.Random;
 
 public class Spider extends BaseEntity{
@@ -43,7 +45,7 @@ public class Spider extends BaseEntity{
     }
 
     @Override
-    public void onClicked(Player player) {
+    public void onClicked(Player player, Collection<BaseEntity> entitiesList) {
         float distFrom = this.getDistanceFrom(player);
         if (distFrom < 200) {
             player.setScore(player.getScore() + 1);

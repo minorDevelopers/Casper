@@ -3,6 +3,7 @@ package hack.the.bubble.casper.screens;
 import hack.the.bubble.casper.Casper;
 import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.LevelStats;
+import hack.the.bubble.casper.ResourceManager;
 import hack.the.bubble.casper.entities.BaseEntity;
 import hack.the.bubble.casper.entities.Candy;
 import hack.the.bubble.casper.entities.NPC;
@@ -12,6 +13,7 @@ import hack.the.bubble.casper.entities.Wall;
 import hack.the.bubble.casper.entities.candyable.Bush;
 import hack.the.bubble.casper.entities.candyable.Pumpkin;
 import hack.the.bubble.casper.entities.candyable.Tree;
+import processing.core.PImage;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -27,13 +29,27 @@ public class Gameplay extends Screen {
     private static double COVID_DISTANCE = 100.0;
     private static int MAX_COVID_COOLDOWN = 100; // number of updates/Player.COVID_COOLDOWN_RATE
     private Random rand = new Random();
+    private PImage scaledFloor;
+    private static final int TILE_SIZE = 120;
+    private int candyLimit;
+    private int npcCount, candyCount, spiderCount, foliageCount;
+    private boolean shouldQuit = false;
 
     public Gameplay(Casper casper) {
         super(casper);
+        //this.candyLimit = rand.nextInt(30)+10;
+        this.candyLimit = 1;
+        this.candyCount = rand.nextInt(30)+20;
+        this.npcCount = rand.nextInt(20)+10;
+        this.spiderCount = rand.nextInt(30)+10;
+        this.foliageCount = rand.nextInt(30)+20;
     }
 
     @Override
     public void setup(Object payload) {
+        scaledFloor = ResourceManager.getInstance().getImage("floor-grass").copy();
+        scaledFloor.resize(TILE_SIZE, TILE_SIZE);
+
         this.player = new Player(getCasper().getDrawBuffer(), "player-male");
 
         this.player.setPosX((int) (1920 * 1.5));
@@ -42,20 +58,20 @@ public class Gameplay extends Screen {
 
         entities.add(player);
 
-        entities.add(new Wall(getCasper().getDrawBuffer(), 400, 5));
+        //entities.add(new Wall(getCasper().getDrawBuffer(), 400, 5));
 
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < candyCount; i++) {
             entities.add(new Candy(getCasper().getDrawBuffer()));
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < npcCount; i++) {
             entities.add(new NPC(getCasper().getDrawBuffer(), 5, 10));
         }
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < foliageCount; i++) {
             entities.add(new Bush(getCasper().getDrawBuffer(), Bush.generateValidBushCoordinate()));
             entities.add(new Tree(getCasper().getDrawBuffer(), Tree.generateValidTreeCoordinate()));
             entities.add(new Pumpkin(getCasper().getDrawBuffer(), Pumpkin.generateValidPumpkinCoordinate()));
         }
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < spiderCount; i++) {
             entities.add(new Spider(getCasper().getDrawBuffer()));
         }
     }
@@ -65,7 +81,7 @@ public class Gameplay extends Screen {
         Coordinate coordinate = getCasper().getDrawBuffer().convertScreenToGameCoordinates(x, y);
         entities.stream()
                 .filter((entity) -> entity.intersects(coordinate.getX(), coordinate.getY()))
-                .forEach(e->{e.onClicked(this.player);});
+                .forEach(e->{e.onClicked(this.player, this.entities);});
     }
 
     public boolean willCollide(Rectangle hitbox) {
@@ -76,9 +92,20 @@ public class Gameplay extends Screen {
                 .orElse(false);
     }
 
+    public void drawFloor() {
+        for (int x = 0; x < (1920 * 3) / TILE_SIZE; x++) {
+            for (int y = 0; y < (1920 * 3) / TILE_SIZE; y++) {
+                getCasper().getDrawBuffer().image(scaledFloor, x * TILE_SIZE, y * TILE_SIZE);
+            }
+        }
+    }
+
     @Override
     public void render() {
+        drawFloor();
+
         float fontSize = 20f;
+        shouldQuit = false;
         getCasper().getDrawBuffer().textSize((int) fontSize);
 
         getCasper().getDrawBuffer().rect(0, 0, 5, 5);
@@ -87,6 +114,8 @@ public class Gameplay extends Screen {
         this.entities.forEach(e -> {
             e.update();
             e.draw();
+
+            shouldQuit = player.getScore() >= this.candyLimit;
 
             if (e.getEntityType() == "NPC" && e.getDistanceFrom(this.player) < COVID_DISTANCE) {
 
@@ -125,9 +154,14 @@ public class Gameplay extends Screen {
         }
 
 
-        getCasper().getDrawBuffer().hudText("Score: " + Integer.toString(player.getScore()), 10, (int) fontSize);
-        getCasper().getDrawBuffer().hudText("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int) fontSize * 2);
-        getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int) fontSize * 3);
+
+        getCasper().getDrawBuffer().hudText(String.format("Score: %d/%d", player.getScore(), this.candyLimit), 10, (int)fontSize);
+        //getCasper().getDrawBuffer().hudText("hasCovid: " + Boolean.toString(player.hasCovid()), 10, (int)fontSize*2);
+        //getCasper().getDrawBuffer().hudText("covidCooldown: " + Integer.toString(player.getCovidCooldown()), 10, (int)fontSize*3);
+
+        if(shouldQuit) {
+            getCasper().updateScreen( new MenuScreen(getCasper()), null );
+        }
 
         if (getCasper().getManager().isPressed('w')) {
             if (!willCollide(player.simulateMove("up"))) {

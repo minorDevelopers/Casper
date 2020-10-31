@@ -3,6 +3,7 @@ package hack.the.bubble.casper.entities;
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class Candy extends BaseEntity {
@@ -20,8 +21,8 @@ public class Candy extends BaseEntity {
         this.setEntityType("candy");
 
         // TODO: generate positions based on map
-        this.setPosX(random.nextInt(applet.width));
-        this.setPosY(random.nextInt(applet.height));
+        this.setPosX(random.nextInt(3*applet.width));
+        this.setPosY(random.nextInt(3*applet.height));
     }
 
     
@@ -31,7 +32,7 @@ public class Candy extends BaseEntity {
     }
 
     @Override
-    public void onClicked(Player player) {
+    public void onClicked(Player player, Collection<BaseEntity> entitiesList) {
         // Possibly make it so you have to click candy to get points?
     }
 

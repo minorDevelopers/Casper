@@ -4,6 +4,9 @@ import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
+
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Random;
 
 public class NPC extends BaseEntity{
@@ -65,7 +68,7 @@ public class NPC extends BaseEntity{
     }
 
     @Override
-    public void onClicked(Player player) {
+    public void onClicked(Player player, Collection<BaseEntity> entitiesList) {
         // Check if within certain distance of player
         if (this.getDistanceFrom(player) < 400 && player.getScore() > 0) {
             // Update time to get back based on previous speed

@@ -5,6 +5,7 @@ import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
 
 import java.awt.*;
+import java.util.Collection;
 import java.util.Random;
 
 public class Player extends BaseEntity {
@@ -36,7 +37,7 @@ public class Player extends BaseEntity {
     }
 
     @Override
-    public void onClicked(Player player) {
+    public void onClicked(Player player, Collection<BaseEntity> entitiesList) {
         this.hasCovid = false;
     }
 
