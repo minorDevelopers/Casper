@@ -68,4 +68,11 @@ public class DrawBuffer {
         parent.image(image, (float) newX, (float) newY, (float) newWidth, (float) newHeight);
     }
 
+    public Coordinate convertScreenToGameCoordinates(int x, int y) {
+        return new Coordinate(
+                (int) ((x / scale) - xOffset),
+                (int) ((y / scale) - yOffset)
+        );
+    }
+
 }
