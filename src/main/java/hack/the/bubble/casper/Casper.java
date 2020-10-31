@@ -27,6 +27,7 @@ public class Casper extends PApplet {
 
     private static int worldHeight = 1080 * 3;
     private static int worldWidth = 1920 * 3;
+    private static final int CAMERA_MOVE_SPEED = 20;
 
     @Override
     public void settings() {
@@ -87,6 +88,9 @@ public class Casper extends PApplet {
         textSize(fontSize);
         fill(230, 230, 230);
 
+
+        rect(0,0,5,5);
+
         // Entity Update
         this.entities.forEach(e -> {
             e.update();
@@ -135,17 +139,18 @@ public class Casper extends PApplet {
         }
 
         if (manager.isPressed(java.awt.event.KeyEvent.VK_UP)) {
-            drawBuffer.offsetY(10);
+            drawBuffer.offsetY(CAMERA_MOVE_SPEED);
         }
         if (manager.isPressed(java.awt.event.KeyEvent.VK_DOWN)) {
-            drawBuffer.offsetY(-10);
+            drawBuffer.offsetY(-CAMERA_MOVE_SPEED);
         }
         if (manager.isPressed(java.awt.event.KeyEvent.VK_LEFT)) {
-            drawBuffer.offsetX(10);
+            drawBuffer.offsetX(CAMERA_MOVE_SPEED);
         }
         if (manager.isPressed(java.awt.event.KeyEvent.VK_RIGHT)) {
-            drawBuffer.offsetX(-10);
+            drawBuffer.offsetX(-CAMERA_MOVE_SPEED);
         }
+
     }
 
     public static void main(String[] args) {

@@ -28,6 +28,14 @@ public class DrawBuffer {
         this.yOffset = yOffset;
     }
 
+    public double getyOffset() {
+        return this.yOffset;
+    }
+
+    public double getxOffset() {
+        return this.xOffset;
+    }
+
     public void offset(double x, double y) {
         this.xOffset = x;
         this.yOffset = y;
