@@ -65,8 +65,11 @@ public class Casper extends PApplet {
 
     @Override
     public void draw() {
-        int bc = 0xff0ff;
-        background(bc);
+        int backgroundColour= 0x7ec850;
+        float fontSize = 20f;
+        background(backgroundColour);
+        textSize(fontSize);
+        fill(230, 230, 230);
 
 
         this.entities.forEach(e -> {
@@ -89,7 +92,7 @@ public class Casper extends PApplet {
         }
         for (int i = 0; i < count; i++) { entities.add(new NPC(drawBuffer, 5, 10)); }
 
-        text("Score: " + Integer.toString(player.getScore()), 10, 10);
+        text("Score: " + Integer.toString(player.getScore()), 10, (int)fontSize);
 
         if (manager.isPressed('w')) {
             player.move("up");
