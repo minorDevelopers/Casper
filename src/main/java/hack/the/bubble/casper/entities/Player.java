@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Player extends BaseEntity {
     private static final int PLAYER_MOVE_SPEED = 5;
-    private static final int PLAYER_COVID_COOLDOWN_RATE = 0;
+    private static final int PLAYER_COVID_COOLDOWN_RATE = 10;
 
     private int score;
     private double transmissionRate;
@@ -32,7 +32,12 @@ public class Player extends BaseEntity {
 
     @Override
     public void update() {
-        if(this.covidCooldown > PLAYER_COVID_COOLDOWN_RATE) this.covidCooldown -= PLAYER_COVID_COOLDOWN_RATE;
+        if(this.covidCooldown >= PLAYER_COVID_COOLDOWN_RATE) this.covidCooldown -= PLAYER_COVID_COOLDOWN_RATE;
+    }
+
+    @Override
+    public void onClicked() {
+        this.hasCovid = false;
     }
 
     public static int getPlayerMoveSpeed() {

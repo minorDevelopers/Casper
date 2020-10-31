@@ -24,7 +24,8 @@ public class Casper extends PApplet {
     private static int worldHeight = 1080 * 3;
     private static int worldWidth = 1920 * 3;
     private static final int CAMERA_MOVE_SPEED = 20;
-    private static double COVID_DISTANCE = 100.0;
+    private static double COVID_DISTANCE = 200.0;
+    private static int MAX_COVID_COOLDOWN = 100; // number of updates/Player.COVID_COOLDOWN_RATE
 
     @Override
     public void settings() {
@@ -102,10 +103,10 @@ public class Casper extends PApplet {
             e.draw();
 
             if(e.getEntityType()=="NPC" && e.getDistanceFrom(this.player) < COVID_DISTANCE){
-                this.player.setCovidCooldown(1000);
+
                 if(e.hasCovid() && !this.player.hasCovid() && this.player.getCovidCooldown() <= 0) {
-                    this.player.setCovid(true);
-                    //this.player.setCovid( rand.nextDouble() == player.getTransmissionRate()*e.getTransmissionRate() );
+                    this.player.setCovidCooldown(MAX_COVID_COOLDOWN);
+                    this.player.setCovid( rand.nextDouble() < player.getTransmissionRate()*e.getTransmissionRate() );
                 }
             }
 
