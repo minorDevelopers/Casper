@@ -5,6 +5,9 @@ import hack.the.bubble.casper.entities.Candy;
 import hack.the.bubble.casper.entities.NPC;
 import hack.the.bubble.casper.entities.Player;
 import hack.the.bubble.casper.entities.Wall;
+import hack.the.bubble.casper.entities.candyable.Bush;
+import hack.the.bubble.casper.entities.candyable.Pumpkin;
+import hack.the.bubble.casper.entities.candyable.Tree;
 import hack.the.bubble.casper.interaction.KeyManager;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
@@ -50,6 +53,11 @@ public class Casper extends PApplet {
         for (int i = 0; i < 10; i++) {
             entities.add(new NPC(drawBuffer, 5, 10));
         }
+        for (int i = 0; i < 30; i++) {
+            entities.add(new Bush(drawBuffer, Bush.generateValidBushCoordinate()));
+            entities.add(new Tree(drawBuffer, Tree.generateValidTreeCoordinate()));
+            entities.add(new Pumpkin(drawBuffer, Pumpkin.generateValidPumpkinCoordinate()));
+        }
     }
 
     @Override
@@ -82,7 +90,7 @@ public class Casper extends PApplet {
 
     @Override
     public void draw() {
-        int backgroundColour= 0x7ec850;
+        int backgroundColour = 0x7ec850;
         float fontSize = 20f;
         background(backgroundColour);
         textSize(fontSize);
@@ -106,14 +114,16 @@ public class Casper extends PApplet {
         int count = 0;
         while (iter.hasNext()) {
             BaseEntity e = iter.next();
-            if(e.getEntityType() == "NPC" && e.isVisible() == false) {
+            if (e.getEntityType() == "NPC" && e.isVisible() == false) {
                 iter.remove();
                 count++;
             }
         }
-        for (int i = 0; i < count; i++) { entities.add(new NPC(drawBuffer, 5, 10)); }
+        for (int i = 0; i < count; i++) {
+            entities.add(new NPC(drawBuffer, 5, 10));
+        }
 
-        text("Score: " + Integer.toString(player.getScore()), 10, (int)fontSize);
+        text("Score: " + Integer.toString(player.getScore()), 10, (int) fontSize);
 
         if (manager.isPressed('w')) {
             if (!willCollide(player.simulateMove("up"))) {
@@ -151,6 +161,16 @@ public class Casper extends PApplet {
             drawBuffer.offsetX(-CAMERA_MOVE_SPEED);
         }
 
+        noFill();
+        drawBuffer.rect(1920 * 0, 1080 * 0, 1920, 1080);
+        drawBuffer.rect(1920 * 1, 1080 * 0, 1920, 1080);
+        drawBuffer.rect(1920 * 2, 1080 * 0, 1920, 1080);
+        drawBuffer.rect(1920 * 0, 1080 * 1, 1920, 1080);
+        drawBuffer.rect(1920 * 1, 1080 * 1, 1920, 1080);
+        drawBuffer.rect(1920 * 2, 1080 * 1, 1920, 1080);
+        drawBuffer.rect(1920 * 0, 1080 * 2, 1920, 1080);
+        drawBuffer.rect(1920 * 1, 1080 * 2, 1920, 1080);
+        drawBuffer.rect(1920 * 2, 1080 * 2, 1920, 1080);
     }
 
     public static void main(String[] args) {
@@ -161,9 +181,17 @@ public class Casper extends PApplet {
             ResourceManager.getInstance().registerSprite("player-vampire", Casper.class.getResource("/Vampire.png"));
             ResourceManager.getInstance().registerSprite("player-male", Casper.class.getResource("/Player_Male.png"));
             ResourceManager.getInstance().registerSprite("player-female", Casper.class.getResource("/Player_Female.png"));
+
             ResourceManager.getInstance().registerSprite("candy.corn", Casper.class.getResource("/candy/CandyCorn.png"));
             ResourceManager.getInstance().registerSprite("candy.lolly", Casper.class.getResource("/candy/Lollipop.png"));
             ResourceManager.getInstance().registerSprite("candy.wrapped", Casper.class.getResource("/Candy/WrappedCandy.png"));
+
+            ResourceManager.getInstance().registerSprite("outside.bush1", Casper.class.getResource("/outside/bush1.png"));
+            ResourceManager.getInstance().registerSprite("outside.bush2", Casper.class.getResource("/outside/bush2.png"));
+            ResourceManager.getInstance().registerSprite("outside.pumpkin1", Casper.class.getResource("/outside/Pumpkin1.png"));
+            ResourceManager.getInstance().registerSprite("outside.pumpkin2", Casper.class.getResource("/outside/Pumpkin2.png"));
+            ResourceManager.getInstance().registerSprite("outside.tree", Casper.class.getResource("/outside/Tree.png"));
+
             ResourceManager.getInstance().registerSpriteSheet("floor-indoor", Casper.class.getResource("/IndoorFloor.png"), 1024, 1024, 0, 0);
         } catch (IOException e) {
             e.printStackTrace();
