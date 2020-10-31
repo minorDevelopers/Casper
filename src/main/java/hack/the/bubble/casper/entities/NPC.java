@@ -67,13 +67,31 @@ public class NPC extends BaseEntity{
     @Override
     public void onClicked(Player player) {
         // Check if within certain distance of player
-        // Update time to get back based on previous speed
+        if (this.getDistanceFrom(player) < 400 && player.getScore() > 0) {
+            // Update time to get back based on previous speed
+            float originalDist = distToTravel(new Coordinate(startX, startY), new Coordinate(endX, endY));
+            float originalSpeed = originalDist / timeToCross;
+            // If so then set end coordinates to start coordinates
+            endX = startX;
+            endY = startY;
+            // start coordinates to current coordinates
+            startX = this.getPosX();
+            startY = this.getPosY();
+            float newDist = distToTravel(new Coordinate(startX, startY), new Coordinate(endX, endY));
+            this.timeToCross = (int) ((newDist / originalSpeed) / 1.1f);
+            this.currentTime = (int)System.currentTimeMillis();
+            this.lastTime = this.currentTime;
+            this.totalTime = 0;
+            player.setScore(player.getScore() - 1);
+        }
 
-        // If so then set end coordinates to start coordinates
+    }
 
-        // start coordinates to current coordinates
-
-
+    private float distToTravel(Coordinate a, Coordinate b) {
+        int dx = a.getX() - b.getX();
+        int dy = a.getY() - b.getY();
+        double diff = Math.pow(dx, 2.f) + Math.pow(dy, 2.f);
+        return (float)Math.sqrt( diff );
     }
 
     private int linearInterpolate(int y1, int y2, float mu) {
