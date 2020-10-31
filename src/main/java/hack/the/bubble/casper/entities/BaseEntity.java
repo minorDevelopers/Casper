@@ -9,9 +9,13 @@ public abstract class BaseEntity {
     protected String imageId;
     private boolean isVisible;
     protected int pixWidth;
+    protected PApplet mainInstance;
 
     // hitbox,
 
+    public BaseEntity(PApplet instance) {
+        this.mainInstance = instance;
+    }
 
 
     /*
@@ -20,8 +24,8 @@ public abstract class BaseEntity {
     public abstract void onCollide();
     public abstract void update();
 
-    public void draw(PApplet instance) {
-        instance.image(
+    public void draw() {
+        this.mainInstance.image(
                 ResourceManager.getInstance().getImage(imageId),
                 this.posX, this.posY,
                 this.pixWidth, ResourceManager.getInstance().getScaledHeight(imageId, this.pixWidth)

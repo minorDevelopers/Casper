@@ -34,7 +34,7 @@ public class Casper extends PApplet {
         background(0xff0ff);
         text("Hello, World!", width / 2, height / 2);
         //image(ResourceManager.getInstance().getImage("player-ghost"), playerX, playerY, 50, ResourceManager.getInstance().getScaledHeight("player-ghost", 50));
-        player.draw(this);
+        player.draw();
 
 
         if (manager.isPressed('w')) {
