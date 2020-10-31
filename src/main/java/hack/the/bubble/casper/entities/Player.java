@@ -35,6 +35,11 @@ public class Player extends BaseEntity {
         if(this.covidCooldown > PLAYER_COVID_COOLDOWN_RATE) this.covidCooldown -= PLAYER_COVID_COOLDOWN_RATE;
     }
 
+    @Override
+    public void onClicked() {
+        // Nothing happens when you click on the player
+    }
+
     public static int getPlayerMoveSpeed() {
         return PLAYER_MOVE_SPEED;
     }

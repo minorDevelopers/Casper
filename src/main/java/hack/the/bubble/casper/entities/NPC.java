@@ -63,6 +63,19 @@ public class NPC extends BaseEntity{
         this.setPosY(linearInterpolate(startY, endY, percentage));
     }
 
+    @Override
+    public void onClicked() {
+        // Check if within certain distance of player
+
+        // Update time to get back based on previous speed
+
+        // If so then set end coordinates to start coordinates
+
+        // start coordinates to current coordinates
+
+
+    }
+
     private int linearInterpolate(int y1, int y2, float mu) {
         return (int)((float)y1 * (1 - mu) + (float) y2 * mu);
     }

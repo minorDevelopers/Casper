@@ -31,6 +31,11 @@ public class Candy extends BaseEntity {
     }
 
     @Override
+    public void onClicked() {
+        // Possibly make it so you have to click candy to get points?
+    }
+
+    @Override
     public void onCollide(BaseEntity e) {
         this.setVisible(false);
     }

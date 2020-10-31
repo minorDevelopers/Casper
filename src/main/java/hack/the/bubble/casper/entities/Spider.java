@@ -41,4 +41,9 @@ public class Spider extends BaseEntity{
         if (((int)System.currentTimeMillis() - spawnTime) > lifeTime * 1000)
             this.isVisible = false;
     }
+
+    @Override
+    public void onClicked() {
+        
+    }
 }

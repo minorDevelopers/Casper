@@ -35,4 +35,9 @@ public class Wall extends BaseEntity{
 
     }
 
+    @Override
+    public void onClicked() {
+
+    }
+
 }
