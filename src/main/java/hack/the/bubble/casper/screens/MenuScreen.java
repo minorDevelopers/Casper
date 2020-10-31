@@ -11,13 +11,13 @@ public class MenuScreen extends Screen{
     }
 
     @Override
-    public void setup() {
+    public void setup(Object payload) {
 
     }
 
     @Override
     public void clicked(int x, int y) {
-        this.getCasper().updateScreen(new Gameplay(getCasper()));
+        this.getCasper().updateScreen(new Gameplay(getCasper()), null);
     }
 
     @Override
