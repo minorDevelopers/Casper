@@ -29,7 +29,8 @@ public class ResourceManager {
     /**
      * Registers a sprite from file path into the image cache. Throws an IllegalArgumentException if sprite name already
      * exists or if the file does not exist. Wrapper for the {@link #registerSprite(String, File)}.
-     * @param name the name to load
+     *
+     * @param name     the name to load
      * @param location the location of the image file
      */
     public void registerSprite(String name, String location) throws IOException {
@@ -39,7 +40,8 @@ public class ResourceManager {
     /**
      * Registers a sprite from file into the image cache. Throws an IllegalArgumentException if sprite name already
      * exists and IO exception if the file cannot be loaded or does not exist
-     * @param name the name to load
+     *
+     * @param name     the name to load
      * @param location the location of the file
      */
     public void registerSprite(String name, File location) throws IOException {
@@ -53,6 +55,7 @@ public class ResourceManager {
     /**
      * Registers a sprite from url into the image cache. Throws an IllegalArgumentException if sprite name already
      * exists or if the image cannot be loaded
+     *
      * @param name the name to load
      * @param path the path from which to laod the image
      * @throws IOException if the URL cannot be loaded
@@ -64,7 +67,8 @@ public class ResourceManager {
     /**
      * Registers a sprite directly into the image cache. Throws an IllegalArgumentException if sprite name already
      * exists.
-     * @param name the name to load
+     *
+     * @param name  the name to load
      * @param image the image to save
      */
     public void registerSprite(String name, BufferedImage image) {
@@ -77,11 +81,36 @@ public class ResourceManager {
 
     /**
      * Returns the sprite with this ID or null if it is not loaded
+     *
      * @param id the id to load
      * @return the image or null if not loaded
      */
     public PImage getImage(String id) {
         return this.imageSet.get(id);
+    }
+
+    /**
+     * Scales the images height based on the input width, maintaining aspect ratio
+     * @param id the id of the image which is being scaled
+     * @param width the new rendering width
+     * @return the new rendering height
+     */
+    public int getScaledHeight(String id, int width) {
+        PImage img = this.imageSet.get(id);
+        double scale = (double) width / (double) img.width;
+        return (int) (img.height * scale);
+    }
+
+    /**
+     * Scales the images width based on the input height, maintaining aspect ratio
+     * @param id the id of the image which is being scaled
+     * @param height the new rendering height
+     * @return the new rendering width
+     */
+    public int getScaledWidth(String id, int height) {
+        PImage img = this.imageSet.get(id);
+        double scale = (double) height / (double) img.height;
+        return (int) (img.width * scale);
     }
 
 }
