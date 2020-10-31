@@ -6,18 +6,19 @@ import processing.core.PApplet;
 import java.util.Random;
 
 public class NPC extends BaseEntity{
-    Random rd = new Random();
+    static Random rd = new Random();
 
-    public boolean hasCovid;
+    private boolean hasCovid;
     private int lastTime;
     private int currentTime;
     private int totalTime;
     private int timeToCross;
+    private static String npcStrings[] = {"player-frankenstein", "player-ghost", "player-pumpkin-man", "player-vampire"};
 
     private int startX, startY, endX, endY;
 
     public NPC(DrawBuffer mainInstance, int minTime, int maxTime) {
-        super(mainInstance, ResourceManager.getInstance().getRandomImageID(), 130);
+        super(mainInstance, npcStrings[rd.nextInt(npcStrings.length)], 130);
 
         this.isVisible = true;
         this.currentTime = (int)System.currentTimeMillis();
@@ -65,5 +66,13 @@ public class NPC extends BaseEntity{
 
     private int linearInterpolate(int y1, int y2, float mu) {
         return (int)((float)y1 * (1 - mu) + (float) y2 * mu);
+    }
+
+    public boolean isHasCovid() {
+        return hasCovid;
+    }
+
+    public void setHasCovid(boolean hasCovid) {
+        this.hasCovid = hasCovid;
     }
 }
