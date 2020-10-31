@@ -44,7 +44,7 @@ public abstract class BaseEntity {
 
     public abstract void update();
 
-    public abstract void onClicked(Player player, Collection<BaseEntity> entitiesList);
+    public abstract void onClicked(Player player, Collection<BaseEntity> newEntitiesList);
 
 
 

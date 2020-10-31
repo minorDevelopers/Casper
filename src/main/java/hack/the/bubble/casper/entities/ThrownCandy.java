@@ -19,7 +19,7 @@ public class ThrownCandy extends BaseEntity{
     private Coordinate startPos, endPos;
 
     public ThrownCandy(DrawBuffer instance, BaseEntity startEntity, BaseEntity targetEntity) {
-        super(instance, candyStrings[rd.nextInt(candyStrings.length)], 20);
+        super(instance, candyStrings[rd.nextInt(candyStrings.length)], 60);
 
         this.isVisible = true;
         this.currentTime = (int)System.currentTimeMillis();

@@ -27,6 +27,7 @@ public class Gameplay extends Screen {
 
     private Player player;
     private Collection<BaseEntity> entities = new ArrayList<>();
+    private Collection<BaseEntity> newEntities = new ArrayList<>();
     private static double COVID_DISTANCE = 100.0;
     private static int MAX_COVID_COOLDOWN = 100; // number of updates/Player.COVID_COOLDOWN_RATE
     private Random rand = new Random();
@@ -41,7 +42,7 @@ public class Gameplay extends Screen {
     public Gameplay(Casper casper) {
         super(casper);
         //this.candyLimit = rand.nextInt(30)+10;
-        this.candyLimit = 1;
+        this.candyLimit = 100;
         this.candyCount = rand.nextInt(30)+20;
         this.npcCount = rand.nextInt(20)+10;
         this.spiderCount = rand.nextInt(30)+10;
@@ -89,6 +90,7 @@ public class Gameplay extends Screen {
         for (int i = 0; i < spiderCount; i++) {
             entities.add(new Spider(getCasper().getDrawBuffer()));
         }
+
     }
 
     @Override
@@ -96,7 +98,7 @@ public class Gameplay extends Screen {
         Coordinate coordinate = getCasper().getDrawBuffer().convertScreenToGameCoordinates(x, y);
         entities.stream()
                 .filter((entity) -> entity.intersects(coordinate.getX(), coordinate.getY()))
-                .forEach(e->{e.onClicked(this.player, this.entities);});
+                .forEach(e->{e.onClicked(this.player, this.newEntities);});
     }
 
     public boolean willCollide(Rectangle hitbox) {
@@ -144,6 +146,10 @@ public class Gameplay extends Screen {
                 player.onCollide(e);
                 e.onCollide(this.player);
             }
+        });
+
+        this.newEntities.forEach(e -> {
+            entities.add(e);
         });
 
         // Entity Removal
