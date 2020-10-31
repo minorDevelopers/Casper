@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +21,9 @@ public class ResourceManager {
         return instance;
     }
 
+    /**
+     * Contains a cache of all currently loaded image files associated with their image IDs
+     */
     private final Map<String, PImage> imageSet = new ConcurrentHashMap<>();
 
     /**
@@ -44,6 +48,17 @@ public class ResourceManager {
         }
 
         registerSprite(name, ImageIO.read(location));
+    }
+
+    /**
+     * Registers a sprite from url into the image cache. Throws an IllegalArgumentException if sprite name already
+     * exists or if the image cannot be loaded
+     * @param name the name to load
+     * @param path the path from which to laod the image
+     * @throws IOException if the URL cannot be loaded
+     */
+    public void registerSprite(String name, URL path) throws IOException {
+        registerSprite(name, ImageIO.read(path));
     }
 
     /**
