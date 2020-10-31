@@ -9,7 +9,6 @@ public class NPC extends BaseEntity{
     Random rd = new Random();
 
     public boolean hasCovid;
-    public boolean finishedMovement = false;
     private int lastTime;
     private int currentTime;
     private int totalTime;
@@ -26,6 +25,7 @@ public class NPC extends BaseEntity{
         this.totalTime = 0;
         this.timeToCross = minTime + rd.nextInt(maxTime - minTime);
         this.hasCovid = rd.nextBoolean();
+        this.setEntityType("NPC");
         setStartEndLocation(1900, 1000);
     }
 
@@ -54,7 +54,6 @@ public class NPC extends BaseEntity{
         lastTime = currentTime;
         float percentage = (float)totalTime/ ((float)timeToCross * 1000.f);
         if (percentage >= 1.0){
-            finishedMovement = true;
             this.isVisible = false;
             return;
         }

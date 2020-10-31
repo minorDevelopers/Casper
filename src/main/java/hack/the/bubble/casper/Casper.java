@@ -12,6 +12,8 @@ import processing.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.Enumeration;
 
 public class Casper extends PApplet {
 
@@ -71,8 +73,8 @@ public class Casper extends PApplet {
         int bc = 0xff0ff;
         background(bc);
 
-        //this.entities.forEach(BaseEntity::update);
-        //this.entities.forEach(BaseEntity::draw);
+
+
 
         this.entities.forEach(e -> {
             e.update();
@@ -82,6 +84,17 @@ public class Casper extends PApplet {
                 e.onCollide(this.player);
             }
         });
+
+        Iterator<BaseEntity> iter = entities.iterator();
+        int count = 0;
+        while (iter.hasNext()) {
+            BaseEntity e = iter.next();
+            if(e.getEntityType() == "NPC" && e.isVisible() == false) {
+                iter.remove();
+                count++;
+            }
+        }
+        for (int i = 0; i < count; i++) { entities.add(new NPC(drawBuffer, 5, 10)); }
 
         text("Score: " + Integer.toString(player.getScore()), 10, 10);
 
