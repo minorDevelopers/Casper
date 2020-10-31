@@ -2,6 +2,7 @@ package hack.the.bubble.casper.entities;
 
 import hack.the.bubble.casper.DrawBuffer;
 
+import java.util.Collection;
 import java.util.Random;
 
 public abstract class CandyableEntity extends BaseEntity {
@@ -28,7 +29,7 @@ public abstract class CandyableEntity extends BaseEntity {
     }
 
     @Override
-    public void onClicked(Player player) {
+    public void onClicked(Player player, Collection<BaseEntity> entitiesList) {
         removeCandy();
         // TODO: increment score
     }

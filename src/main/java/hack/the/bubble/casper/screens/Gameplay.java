@@ -64,7 +64,7 @@ public class Gameplay extends Screen {
         Coordinate coordinate = getCasper().getDrawBuffer().convertScreenToGameCoordinates(x, y);
         entities.stream()
                 .filter((entity) -> entity.intersects(coordinate.getX(), coordinate.getY()))
-                .forEach(e->{e.onClicked(this.player);});
+                .forEach(e->{e.onClicked(this.player, this.entities);});
     }
 
     public boolean willCollide(Rectangle hitbox) {

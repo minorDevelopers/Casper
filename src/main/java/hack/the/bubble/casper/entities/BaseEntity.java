@@ -7,6 +7,7 @@ import processing.core.PApplet;
 
 import java.awt.*;
 import java.math.*;
+import java.util.Collection;
 
 public abstract class BaseEntity {
 
@@ -43,7 +44,7 @@ public abstract class BaseEntity {
 
     public abstract void update();
 
-    public abstract void onClicked(Player player);
+    public abstract void onClicked(Player player, Collection<BaseEntity> entitiesList);
 
 
 

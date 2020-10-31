@@ -3,6 +3,7 @@ package hack.the.bubble.casper.entities;
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class Candy extends BaseEntity {
@@ -31,7 +32,7 @@ public class Candy extends BaseEntity {
     }
 
     @Override
-    public void onClicked(Player player) {
+    public void onClicked(Player player, Collection<BaseEntity> entitiesList) {
         // Possibly make it so you have to click candy to get points?
     }
 
