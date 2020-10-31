@@ -60,15 +60,15 @@ public class Casper extends PApplet {
         }
 
         noFill();
-        drawBuffer.rect(1920 * 0, 1080 * 0, 1920, 1080);
-        drawBuffer.rect(1920 * 1, 1080 * 0, 1920, 1080);
-        drawBuffer.rect(1920 * 2, 1080 * 0, 1920, 1080);
-        drawBuffer.rect(1920 * 0, 1080 * 1, 1920, 1080);
-        drawBuffer.rect(1920 * 1, 1080 * 1, 1920, 1080);
-        drawBuffer.rect(1920 * 2, 1080 * 1, 1920, 1080);
-        drawBuffer.rect(1920 * 0, 1080 * 2, 1920, 1080);
-        drawBuffer.rect(1920 * 1, 1080 * 2, 1920, 1080);
-        drawBuffer.rect(1920 * 2, 1080 * 2, 1920, 1080);
+//        drawBuffer.rect(1920 * 0, 1080 * 0, 1920, 1080);
+//        drawBuffer.rect(1920 * 1, 1080 * 0, 1920, 1080);
+//        drawBuffer.rect(1920 * 2, 1080 * 0, 1920, 1080);
+//        drawBuffer.rect(1920 * 0, 1080 * 1, 1920, 1080);
+//        drawBuffer.rect(1920 * 1, 1080 * 1, 1920, 1080);
+//        drawBuffer.rect(1920 * 2, 1080 * 1, 1920, 1080);
+//        drawBuffer.rect(1920 * 0, 1080 * 2, 1920, 1080);
+//        drawBuffer.rect(1920 * 1, 1080 * 2, 1920, 1080);
+//        drawBuffer.rect(1920 * 2, 1080 * 2, 1920, 1080);
 
     }
 

@@ -22,7 +22,7 @@ public class MenuScreen extends Screen{
 
     @Override
     public void render() {
-        this.getCasper().getDrawBuffer().image(ResourceManager.getInstance().getImage("menuScreen"), 0,0);
+        this.getCasper().getDrawBuffer().image(ResourceManager.getInstance().getImage("menuScreen"), 0,0, getCasper().getDrawBuffer().width, getCasper().getDrawBuffer().height);
         this.getCasper().getDrawBuffer().hudText("Click Anywhere \nto start the game.", 300,265);
         this.getCasper().getDrawBuffer().textSize(100);
 

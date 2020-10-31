@@ -2,6 +2,7 @@ package hack.the.bubble.casper.screens;
 
 import hack.the.bubble.casper.Casper;
 import hack.the.bubble.casper.Coordinate;
+import hack.the.bubble.casper.LevelStats;
 import hack.the.bubble.casper.entities.BaseEntity;
 import hack.the.bubble.casper.entities.Candy;
 import hack.the.bubble.casper.entities.NPC;
@@ -150,5 +151,7 @@ public class Gameplay extends Screen {
                 getCasper().getDrawBuffer().offsetX(-Player.getPlayerMoveSpeed());
             }
         }
+        //getCasper().updateScreen(new LevelScreen(getCasper()), new LevelStats(0,1,false));
     }
+
 }
