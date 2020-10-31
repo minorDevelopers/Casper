@@ -18,16 +18,14 @@ public class NPC extends BaseEntity{
     private int startX, startY, endX, endY;
 
     public NPC(DrawBuffer mainInstance, int minTime, int maxTime) {
-        super(mainInstance, ResourceManager.getInstance().getRandomImageID(), 50);
+        super(mainInstance, ResourceManager.getInstance().getRandomImageID(), 130);
         this.isVisible = true;
-//        this.imageId = ResourceManager.getInstance().getRandomImageID();
         this.currentTime = (int)System.currentTimeMillis();
         this.lastTime = this.currentTime;
         this.totalTime = 0;
-//        this.pixWidth = 50;
         this.timeToCross = minTime + rd.nextInt(maxTime - minTime);
         this.hasCovid = rd.nextBoolean();
-        setStartEndLocation(1900, 1030);
+        setStartEndLocation(1900, 1000);
     }
 
     private void setStartEndLocation(int screenWidth, int screenHeight) {

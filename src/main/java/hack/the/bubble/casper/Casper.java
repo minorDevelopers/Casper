@@ -17,7 +17,6 @@ public class Casper extends PApplet {
 
     private KeyManager manager = new KeyManager();
     private Player player;
-    private NPC npc;
     private Player player2;
     private Collection<BaseEntity> entities = new ArrayList<>();
     private DrawBuffer drawBuffer;
@@ -41,6 +40,9 @@ public class Casper extends PApplet {
 
         for (int i = 0; i < 40; i++) {
             entities.add(new Candy(drawBuffer));
+        }
+        for (int i = 0; i < 10; i++) {
+            entities.add(new NPC(drawBuffer, 5, 10));
         }
     }
 
