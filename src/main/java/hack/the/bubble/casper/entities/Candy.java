@@ -21,8 +21,8 @@ public class Candy extends BaseEntity {
         this.setEntityType("candy");
 
         // TODO: generate positions based on map
-        this.setPosX(random.nextInt(applet.width));
-        this.setPosY(random.nextInt(applet.height));
+        this.setPosX(random.nextInt(3*applet.width));
+        this.setPosY(random.nextInt(3*applet.height));
     }
 
     

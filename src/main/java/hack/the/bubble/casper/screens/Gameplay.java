@@ -37,9 +37,9 @@ public class Gameplay extends Screen {
         super(casper);
         this.candyLimit = rand.nextInt(30)+10;
         this.candyCount = rand.nextInt(30)+20;
-        this.npcCount = rand.nextInt(10)+5;
+        this.npcCount = rand.nextInt(20)+10;
         this.spiderCount = rand.nextInt(30)+10;
-        this.foliageCount = rand.nextInt(30)+10;
+        this.foliageCount = rand.nextInt(60)+30;
     }
 
     @Override
