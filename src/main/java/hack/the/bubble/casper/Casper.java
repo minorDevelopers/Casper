@@ -1,19 +1,22 @@
 package hack.the.bubble.casper;
 
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.resources.Resources;
+import processing.core.PApplet;
 
-public class Casper {
+public class Casper extends PApplet {
+
+    @Override
+    public void settings() {
+        size(720, 480);
+    }
+
+    @Override
+    public void draw() {
+        background(0xff0ff);
+        text("Hello, World!", width / 2, height / 2);
+    }
 
     public static void main(String[] args) {
-        Game.info().setName("Casper");
-        Game.info().setSubTitle("");
-        Game.info().setVersion("v0.1");
-        Game.info().setWebsite("https://github.com/minorDevelopers/Casper");
-        Game.info().setDescription("");
-
-        Game.init(args);
-        Game.start();
+        PApplet.main(new String[]{"hack.the.bubble.casper.Casper"});
     }
 
 }
