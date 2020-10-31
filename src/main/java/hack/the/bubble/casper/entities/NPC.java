@@ -27,7 +27,7 @@ public class NPC extends BaseEntity{
         this.timeToCross = minTime + rd.nextInt(maxTime - minTime);
         this.hasCovid = rd.nextBoolean();
         this.setEntityType("NPC");
-        setStartEndLocation(1900, 1000);
+        setStartEndLocation(1900 * 3, 1080 * 2);
     }
 
     private void setStartEndLocation(int screenWidth, int screenHeight) {

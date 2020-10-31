@@ -1,10 +1,6 @@
 package hack.the.bubble.casper;
 
-import hack.the.bubble.casper.entities.BaseEntity;
-import hack.the.bubble.casper.entities.Candy;
-import hack.the.bubble.casper.entities.NPC;
-import hack.the.bubble.casper.entities.Player;
-import hack.the.bubble.casper.entities.Wall;
+import hack.the.bubble.casper.entities.*;
 import hack.the.bubble.casper.entities.candyable.Bush;
 import hack.the.bubble.casper.entities.candyable.Pumpkin;
 import hack.the.bubble.casper.entities.candyable.Tree;
@@ -50,13 +46,16 @@ public class Casper extends PApplet {
         for (int i = 0; i < 40; i++) {
             entities.add(new Candy(drawBuffer));
         }
-        for (int i = 0; i < 10; i++) {
-            entities.add(new NPC(drawBuffer, 5, 10));
+        for (int i = 0; i < 40; i++) {
+            entities.add(new NPC(drawBuffer, 15, 45));
         }
         for (int i = 0; i < 30; i++) {
             entities.add(new Bush(drawBuffer, Bush.generateValidBushCoordinate()));
             entities.add(new Tree(drawBuffer, Tree.generateValidTreeCoordinate()));
             entities.add(new Pumpkin(drawBuffer, Pumpkin.generateValidPumpkinCoordinate()));
+        }
+        for (int i = 0; i < 10; i++) {
+            entities.add(new Spider(drawBuffer));
         }
     }
 
@@ -111,16 +110,24 @@ public class Casper extends PApplet {
 
         // Entity Removal
         Iterator<BaseEntity> iter = entities.iterator();
-        int count = 0;
+        int countNPC = 0;
+        int countSpider = 0;
         while (iter.hasNext()) {
             BaseEntity e = iter.next();
             if (e.getEntityType() == "NPC" && e.isVisible() == false) {
                 iter.remove();
-                count++;
+                countNPC++;
+            }
+            if (e.getEntityType() == "Spider" && e.isVisible() == false) {
+                iter.remove();
+                countSpider++;
             }
         }
-        for (int i = 0; i < count; i++) {
-            entities.add(new NPC(drawBuffer, 5, 10));
+        for (int i = 0; i < countNPC; i++) {
+            entities.add(new NPC(drawBuffer, 15, 45));
+        }
+        for (int i = 0; i < countSpider; i++) {
+            entities.add(new Spider(drawBuffer));
         }
 
         text("Score: " + Integer.toString(player.getScore()), 10, (int) fontSize);
@@ -171,6 +178,7 @@ public class Casper extends PApplet {
         drawBuffer.rect(1920 * 0, 1080 * 2, 1920, 1080);
         drawBuffer.rect(1920 * 1, 1080 * 2, 1920, 1080);
         drawBuffer.rect(1920 * 2, 1080 * 2, 1920, 1080);
+
     }
 
     public static void main(String[] args) {
@@ -191,6 +199,9 @@ public class Casper extends PApplet {
             ResourceManager.getInstance().registerSprite("outside.pumpkin1", Casper.class.getResource("/outside/Pumpkin1.png"));
             ResourceManager.getInstance().registerSprite("outside.pumpkin2", Casper.class.getResource("/outside/Pumpkin2.png"));
             ResourceManager.getInstance().registerSprite("outside.tree", Casper.class.getResource("/outside/Tree.png"));
+
+
+            ResourceManager.getInstance().registerSprite("spider", Casper.class.getResource("/Spider.png"));
 
             ResourceManager.getInstance().registerSpriteSheet("floor-indoor", Casper.class.getResource("/IndoorFloor.png"), 1024, 1024, 0, 0);
         } catch (IOException e) {
