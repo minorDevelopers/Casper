@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
@@ -107,6 +108,22 @@ public abstract class BaseEntity {
         }
 
         return position;
+    }
+
+
+    public Coordinate getCenter() {
+        return new Coordinate( this.posX+this.pixWidth/2, this.posY+this.pixHeight/2 );
+    }
+
+    public float getDistanceFrom(BaseEntity e) {
+        Coordinate a, b;
+        a = e.getCenter();
+        b = this.getCenter();
+        float dx, dy;
+        dx = a.getX() - b.getX();
+        dy = a.getY() - b.getY();
+        float diff = (float)Math.pow(dx, 2.f) + (float)Math.pow(dy, 2.f);
+        return (float)Math.sqrt( diff );
     }
 
     // Returns a Rectangle object surrounding the entity at its position
