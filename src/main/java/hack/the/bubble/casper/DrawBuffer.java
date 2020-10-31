@@ -68,6 +68,22 @@ public class DrawBuffer {
         parent.image(image, (float) newX, (float) newY, (float) newWidth, (float) newHeight);
     }
 
+    public void rect(int x, int y, int width, int height) {
+        double newWidth = width * scale;
+        double newHeight = height * scale;
+
+        double newX = (x + xOffset) * scale;
+        double newY = (y + yOffset) * scale;
+
+        // If its out of bounds actually skip rendering
+        if (newX + newWidth < 0) return;
+        if (newY + newHeight < 0) return;
+        if (newX > this.width) return;
+        if (newY > this.height) return;
+
+        parent.rect((float) newX, (float) newY, (float) newWidth, (float) newHeight);
+    }
+
     public Coordinate convertScreenToGameCoordinates(int x, int y) {
         return new Coordinate(
                 (int) ((x / scale) - xOffset),

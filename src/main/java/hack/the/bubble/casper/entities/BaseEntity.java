@@ -19,12 +19,13 @@ public abstract class BaseEntity {
 
     public BaseEntity(DrawBuffer instance, String imageId, int pixWidth) {
         this.mainInstance = instance;
-        this.posX = instance.width/2;
-        this.posY = instance.height/2;
+        this.posX = instance.width / 2;
+        this.posY = instance.height / 2;
         this.imageId = imageId;
         this.isVisible = true;
         this.pixWidth = pixWidth;
-        this.pixHeight = ResourceManager.getInstance().getScaledHeight(imageId, pixWidth);
+        if (imageId == null) this.pixHeight = pixWidth;
+        else this.pixHeight = ResourceManager.getInstance().getScaledHeight(imageId, pixWidth);
         this.entityType = "none";
     }
 
@@ -33,10 +34,12 @@ public abstract class BaseEntity {
         Abstract functions
      */
     public abstract void onCollide(BaseEntity e);
-    public abstract void update();
-    public void onClicked(){
 
-    };
+    public abstract void update();
+
+    public void onClicked() {
+
+    }
 
 
 
@@ -45,8 +48,12 @@ public abstract class BaseEntity {
         return e.hitbox().intersects(this.hitbox());
     }
 
-    public boolean intersects(int x, int y){
+    public boolean intersects(int x, int y) {
         return this.hitbox().intersects(x, y, 1, 1);
+    }
+
+    public boolean intersects(Rectangle hitbox) {
+        return this.hitbox().intersects(hitbox);
     }
 
     // If the entity is visible, draw it to the screen
@@ -62,13 +69,44 @@ public abstract class BaseEntity {
 
     // Moves the entity by its move speed in the direction specified.
     public void move(String direction) {
-        switch(direction) {
-            case "up": this.setPosY(this.getPosY() - this.moveSpeed); break;
-            case "down": this.setPosY(this.getPosY() + this.moveSpeed); break;
-            case "left": this.setPosX(this.getPosX() - this.moveSpeed); break;
-            case "right": this.setPosX(this.getPosX() + this.moveSpeed); break;
-            default: break;
+        switch (direction) {
+            case "up":
+                this.setPosY(this.getPosY() - this.moveSpeed);
+                break;
+            case "down":
+                this.setPosY(this.getPosY() + this.moveSpeed);
+                break;
+            case "left":
+                this.setPosX(this.getPosX() - this.moveSpeed);
+                break;
+            case "right":
+                this.setPosX(this.getPosX() + this.moveSpeed);
+                break;
+            default:
+                break;
         }
+    }
+
+    public Rectangle simulateMove(String direction) {
+        Rectangle position = new Rectangle(hitbox());
+        switch (direction) {
+            case "up":
+                position.setLocation((int) position.getX(), this.getPosY() - this.moveSpeed);
+                break;
+            case "down":
+                position.setLocation((int) position.getX(), this.getPosY() + this.moveSpeed);
+                break;
+            case "left":
+                position.setLocation(this.getPosX() - this.moveSpeed, (int) position.getY());
+                break;
+            case "right":
+                position.setLocation(this.getPosX() + this.moveSpeed, (int) position.getY());
+                break;
+            default:
+                break;
+        }
+
+        return position;
     }
 
     // Returns a Rectangle object surrounding the entity at its position

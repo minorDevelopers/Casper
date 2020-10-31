@@ -4,16 +4,19 @@ import hack.the.bubble.casper.entities.BaseEntity;
 import hack.the.bubble.casper.entities.Candy;
 import hack.the.bubble.casper.entities.NPC;
 import hack.the.bubble.casper.entities.Player;
+import hack.the.bubble.casper.entities.Wall;
 import hack.the.bubble.casper.interaction.KeyManager;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
+import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Enumeration;
+import java.util.Optional;
 
 public class Casper extends PApplet {
 
@@ -37,6 +40,8 @@ public class Casper extends PApplet {
         this.player.setPosY(height / 2);
 
         entities.add(player);
+
+        entities.add(new Wall(drawBuffer, 400, 5));
 
         for (int i = 0; i < 40; i++) {
             entities.add(new Candy(drawBuffer));
@@ -66,6 +71,14 @@ public class Casper extends PApplet {
         }
     }
 
+    public boolean willCollide(Rectangle hitbox) {
+        return entities.stream()
+                .filter((e) -> e.getEntityType().contains("solid"))
+                .map((e) -> e.intersects(hitbox))
+                .reduce((left, right) -> left || right)
+                .orElse(false);
+    }
+
     @Override
     public void draw() {
         int backgroundColour= 0x7ec850;
@@ -78,7 +91,7 @@ public class Casper extends PApplet {
         this.entities.forEach(e -> {
             e.update();
             e.draw();
-            if(e.intersects(this.player)) {
+            if (e.intersects(this.player)) {
                 player.onCollide(e);
                 e.onCollide(this.player);
             }
@@ -99,18 +112,26 @@ public class Casper extends PApplet {
         text("Score: " + Integer.toString(player.getScore()), 10, (int)fontSize);
 
         if (manager.isPressed('w')) {
-            player.move("up");
-            drawBuffer.offsetY(Player.getPlayerMoveSpeed());
+            if (!willCollide(player.simulateMove("up"))) {
+                player.move("up");
+                drawBuffer.offsetY(Player.getPlayerMoveSpeed());
+            }
         } else if (manager.isPressed('s')) {
-            player.move("down");
-            drawBuffer.offsetY(-Player.getPlayerMoveSpeed());
+            if (!willCollide(player.simulateMove("down"))) {
+                player.move("down");
+                drawBuffer.offsetY(-Player.getPlayerMoveSpeed());
+            }
         }
         if (manager.isPressed('a')) {
-            player.move("left");
-            drawBuffer.offsetX(Player.getPlayerMoveSpeed());
+            if (!willCollide(player.simulateMove("left"))) {
+                player.move("left");
+                drawBuffer.offsetX(Player.getPlayerMoveSpeed());
+            }
         } else if (manager.isPressed('d')) {
-            player.move("right");
-            drawBuffer.offsetX(-Player.getPlayerMoveSpeed());
+            if (!willCollide(player.simulateMove("right"))) {
+                player.move("right");
+                drawBuffer.offsetX(-Player.getPlayerMoveSpeed());
+            }
         }
 
         if (manager.isPressed(java.awt.event.KeyEvent.VK_UP)) {
