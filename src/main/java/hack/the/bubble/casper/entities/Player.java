@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
 
@@ -10,7 +11,7 @@ public class Player extends BaseEntity {
 
     private static final int PLAYER_MOVE_SPEED = 5;
 
-    public Player(PApplet mainInstance, String imageId) {
+    public Player(DrawBuffer mainInstance, String imageId) {
         super(mainInstance, imageId, 130);
         this.moveSpeed = PLAYER_MOVE_SPEED;
     }
@@ -23,5 +24,9 @@ public class Player extends BaseEntity {
     @Override
     public void update() {
 
+    }
+
+    public static int getPlayerMoveSpeed() {
+        return PLAYER_MOVE_SPEED;
     }
 }

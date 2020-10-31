@@ -20,19 +20,27 @@ public class Casper extends PApplet {
     private NPC npc;
     private Player player2;
     private Collection<BaseEntity> entities = new ArrayList<>();
+    private DrawBuffer drawBuffer;
 
     @Override
     public void settings() {
-        this.player = new Player(this, "player-male");
-        this.player2 = new Player(this, "player-female");
+        size(1900, 1000);
 
-        size(1900, 1030);
+        drawBuffer = new DrawBuffer(this, this.width, this.height);
+
+        this.player = new Player(drawBuffer, "player-male");
+        this.player2 = new Player(drawBuffer, "player-female");
+
+        this.player.setPosX(width / 2);
+        this.player.setPosY(height / 2);
+        this.player2.setPosX(width / 2);
+        this.player2.setPosY(height / 2);
 
         entities.add(player);
         entities.add(player2);
 
         for (int i = 0; i < 40; i++) {
-            entities.add(new Candy(this));
+            entities.add(new Candy(drawBuffer));
         }
     }
 
@@ -61,13 +69,30 @@ public class Casper extends PApplet {
 
         if (manager.isPressed('w')) {
             player.move("up");
+            drawBuffer.offsetY(Player.getPlayerMoveSpeed());
         } else if (manager.isPressed('s')) {
             player.move("down");
+            drawBuffer.offsetY(-Player.getPlayerMoveSpeed());
         }
         if (manager.isPressed('a')) {
             player.move("left");
+            drawBuffer.offsetX(Player.getPlayerMoveSpeed());
         } else if (manager.isPressed('d')) {
             player.move("right");
+            drawBuffer.offsetX(-Player.getPlayerMoveSpeed());
+        }
+
+        if (manager.isPressed(java.awt.event.KeyEvent.VK_UP)) {
+            drawBuffer.offsetY(-10);
+        }
+        if (manager.isPressed(java.awt.event.KeyEvent.VK_DOWN)) {
+            drawBuffer.offsetY(10);
+        }
+        if (manager.isPressed(java.awt.event.KeyEvent.VK_LEFT)) {
+            drawBuffer.offsetX(-10);
+        }
+        if (manager.isPressed(java.awt.event.KeyEvent.VK_RIGHT)) {
+            drawBuffer.offsetX(10);
         }
     }
 

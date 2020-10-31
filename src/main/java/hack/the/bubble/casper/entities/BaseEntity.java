@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
 
@@ -12,13 +13,13 @@ public abstract class BaseEntity {
     protected String imageId;
     protected boolean isVisible;
     protected int pixWidth, pixHeight;
-    protected PApplet mainInstance;
+    protected DrawBuffer mainInstance;
 
     public Rectangle hitbox() {
         return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
     }
 
-    public BaseEntity(PApplet instance, String imageId, int pixWidth) {
+    public BaseEntity(DrawBuffer instance, String imageId, int pixWidth) {
         this.mainInstance = instance;
         this.posX = instance.width/2;
         this.posY = instance.height/2;

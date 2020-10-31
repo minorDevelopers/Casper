@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
 
@@ -17,7 +18,7 @@ public class Candy extends BaseEntity {
     private final String sprite;
     private boolean isVisible = true;
 
-    public Candy(PApplet applet) {
+    public Candy(DrawBuffer applet) {
         super(applet, "candy.wrapped", 50);
         this.sprite = IMAGE_OPTIONS[random.nextInt(IMAGE_OPTIONS.length)];
 
@@ -33,8 +34,8 @@ public class Candy extends BaseEntity {
                 ResourceManager.getInstance().getImage(sprite),
                 this.getPosX(),
                 this.getPosY(),
-                50,
-                ResourceManager.getInstance().getScaledHeight(this.sprite, 50)
+                30,
+                ResourceManager.getInstance().getScaledHeight(this.sprite, 30)
         );
     }
 

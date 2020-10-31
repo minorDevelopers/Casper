@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
 import processing.core.PApplet;
 import java.util.Random;
@@ -16,14 +17,14 @@ public class NPC extends BaseEntity{
 
     private int startX, startY, endX, endY;
 
-    public NPC(PApplet mainInstance, int minTime, int maxTime) {
-        super(mainInstance);
+    public NPC(DrawBuffer mainInstance, int minTime, int maxTime) {
+        super(mainInstance, ResourceManager.getInstance().getRandomImageID(), 50);
         this.isVisible = true;
-        this.imageId = ResourceManager.getInstance().getRandomImageID();
+//        this.imageId = ResourceManager.getInstance().getRandomImageID();
         this.currentTime = (int)System.currentTimeMillis();
         this.lastTime = this.currentTime;
         this.totalTime = 0;
-        this.pixWidth = 50;
+//        this.pixWidth = 50;
         this.timeToCross = minTime + rd.nextInt(maxTime - minTime);
         this.hasCovid = rd.nextBoolean();
         setStartEndLocation(1900, 1030);
