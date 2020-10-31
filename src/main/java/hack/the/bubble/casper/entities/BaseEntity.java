@@ -17,10 +17,6 @@ public abstract class BaseEntity {
     private String entityType;
 
 
-    public Rectangle hitbox() {
-        return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
-    }
-
     public BaseEntity(DrawBuffer instance, String imageId, int pixWidth) {
         this.mainInstance = instance;
         this.posX = instance.width/2;
@@ -42,6 +38,9 @@ public abstract class BaseEntity {
 
     };
 
+
+
+    // Returns true if the passed entity hitbox intersects with this entity's hotbox
     public boolean intersects(BaseEntity e) {
         return e.hitbox().intersects(this.hitbox());
     }
@@ -50,8 +49,8 @@ public abstract class BaseEntity {
         return this.hitbox().intersects(x, y, 1, 1);
     }
 
+    // If the entity is visible, draw it to the screen
     public void draw() {
-
         if(this.isVisible) {
             this.mainInstance.image(
                     ResourceManager.getInstance().getImage(imageId),
@@ -61,6 +60,7 @@ public abstract class BaseEntity {
         }
     }
 
+    // Moves the entity by its move speed in the direction specified.
     public void move(String direction) {
         switch(direction) {
             case "up": this.setPosY(this.getPosY() - this.moveSpeed); break;
@@ -70,6 +70,15 @@ public abstract class BaseEntity {
             default: break;
         }
     }
+
+    // Returns a Rectangle object surrounding the entity at its position
+    public Rectangle hitbox() {
+        return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
+    }
+
+    /*
+        Getters and setters
+     */
 
     public int getPosX() {
         return posX;
