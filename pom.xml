@@ -30,4 +30,12 @@
         </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>de.gurkenlabs</groupId>
+            <artifactId>litiengine</artifactId>
+            <version>0.5.0</version>
+        </dependency>
+    </dependencies>
+
 </project>
