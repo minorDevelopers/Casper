@@ -19,7 +19,6 @@ public class Casper extends PApplet {
 
     private KeyManager manager = new KeyManager();
     private Player player;
-    private Player player2;
     private Collection<BaseEntity> entities = new ArrayList<>();
     private DrawBuffer drawBuffer;
 
@@ -30,15 +29,11 @@ public class Casper extends PApplet {
         drawBuffer = new DrawBuffer(this, this.width, this.height);
 
         this.player = new Player(drawBuffer, "player-male");
-        this.player2 = new Player(drawBuffer, "player-female");
 
         this.player.setPosX(width / 2);
         this.player.setPosY(height / 2);
-        this.player2.setPosX(width / 2);
-        this.player2.setPosY(height / 2);
 
         entities.add(player);
-        entities.add(player2);
 
         for (int i = 0; i < 40; i++) {
             entities.add(new Candy(drawBuffer));
@@ -72,8 +67,6 @@ public class Casper extends PApplet {
     public void draw() {
         int bc = 0xff0ff;
         background(bc);
-
-
 
 
         this.entities.forEach(e -> {
