@@ -23,6 +23,8 @@ public class Casper extends PApplet {
     private Collection<BaseEntity> entities = new ArrayList<>();
     private DrawBuffer drawBuffer;
 
+
+
     @Override
     public void settings() {
         size(1900, 1000);
@@ -114,16 +116,16 @@ public class Casper extends PApplet {
         }
 
         if (manager.isPressed(java.awt.event.KeyEvent.VK_UP)) {
-            drawBuffer.offsetY(-10);
-        }
-        if (manager.isPressed(java.awt.event.KeyEvent.VK_DOWN)) {
             drawBuffer.offsetY(10);
         }
+        if (manager.isPressed(java.awt.event.KeyEvent.VK_DOWN)) {
+            drawBuffer.offsetY(-10);
+        }
         if (manager.isPressed(java.awt.event.KeyEvent.VK_LEFT)) {
-            drawBuffer.offsetX(-10);
+            drawBuffer.offsetX(10);
         }
         if (manager.isPressed(java.awt.event.KeyEvent.VK_RIGHT)) {
-            drawBuffer.offsetX(10);
+            drawBuffer.offsetX(-10);
         }
     }
 
