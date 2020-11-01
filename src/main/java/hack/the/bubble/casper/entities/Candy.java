@@ -1,5 +1,6 @@
 package hack.the.bubble.casper.entities;
 
+import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
 
 import java.util.Collection;
@@ -15,12 +16,21 @@ public class Candy extends BaseEntity {
     private static final Random random = new Random();
 
     public Candy(DrawBuffer applet) {
-        super(applet, IMAGE_OPTIONS[random.nextInt(IMAGE_OPTIONS.length)], 30);
+        super(applet, IMAGE_OPTIONS[random.nextInt(IMAGE_OPTIONS.length)], 40);
 
         this.setEntityType("candy");
 
         // TODO: generate positions based on map
         this.setPos(random.nextInt(3*applet.width),random.nextInt(3*applet.height));
+    }
+
+    public Candy(DrawBuffer applet, Coordinate position) {
+        super(applet, IMAGE_OPTIONS[random.nextInt(IMAGE_OPTIONS.length)], 40);
+
+        this.setEntityType("candy");
+
+        // TODO: generate positions based on map
+        this.setPos(position);
     }
 
     
