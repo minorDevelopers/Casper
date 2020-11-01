@@ -1,12 +1,8 @@
 package hack.the.bubble.casper.entities;
 
 import hack.the.bubble.casper.DrawBuffer;
-import hack.the.bubble.casper.ResourceManager;
-import processing.core.PApplet;
 
-import java.awt.*;
 import java.util.Collection;
-import java.util.Random;
 
 public class Player extends BaseEntity {
     private static final int PLAYER_MOVE_SPEED = 5;
@@ -27,7 +23,7 @@ public class Player extends BaseEntity {
 
     @Override
     public void onCollide(BaseEntity e) {
-        if(e.getEntityType() == "candy" && e.isVisible()) this.score++;
+        if(e.getEntityType().equals("candy") && e.isVisible()) this.score++;
         //if(!this.hasCovid()) this.setCovid(e.hasCovid());
     }
 

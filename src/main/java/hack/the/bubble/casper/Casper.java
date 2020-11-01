@@ -1,11 +1,6 @@
 package hack.the.bubble.casper;
 
-import hack.the.bubble.casper.entities.*;
-import hack.the.bubble.casper.entities.candyable.Bush;
-import hack.the.bubble.casper.entities.candyable.Pumpkin;
-import hack.the.bubble.casper.entities.candyable.Tree;
 import hack.the.bubble.casper.interaction.KeyManager;
-import hack.the.bubble.casper.screens.Gameplay;
 import hack.the.bubble.casper.screens.MenuScreen;
 import hack.the.bubble.casper.screens.Screen;
 import processing.core.PApplet;
@@ -13,19 +8,12 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 public class Casper extends PApplet {
 
-    private KeyManager manager = new KeyManager();
+    private final KeyManager manager = new KeyManager();
     private DrawBuffer drawBuffer;
     private Screen activeScreen;
-
-    private static int worldHeight = 1080 * 3;
-    private static int worldWidth = 1920 * 3;
-    private static final int CAMERA_MOVE_SPEED = 20;
-    private static double COVID_DISTANCE = 200.0;
-    private static int MAX_COVID_COOLDOWN = 100; // number of updates/Player.COVID_COOLDOWN_RATE
 
     @Override
     public void settings() {
@@ -60,16 +48,6 @@ public class Casper extends PApplet {
         }
 
         noFill();
-//        drawBuffer.rect(1920 * 0, 1080 * 0, 1920, 1080);
-//        drawBuffer.rect(1920 * 1, 1080 * 0, 1920, 1080);
-//        drawBuffer.rect(1920 * 2, 1080 * 0, 1920, 1080);
-//        drawBuffer.rect(1920 * 0, 1080 * 1, 1920, 1080);
-//        drawBuffer.rect(1920 * 1, 1080 * 1, 1920, 1080);
-//        drawBuffer.rect(1920 * 2, 1080 * 1, 1920, 1080);
-//        drawBuffer.rect(1920 * 0, 1080 * 2, 1920, 1080);
-//        drawBuffer.rect(1920 * 1, 1080 * 2, 1920, 1080);
-//        drawBuffer.rect(1920 * 2, 1080 * 2, 1920, 1080);
-
     }
 
     public void updateScreen(Screen screen, Object payload) {
@@ -92,6 +70,11 @@ public class Casper extends PApplet {
     }
 
     public static void main(String[] args) {
+        loadAssets();
+        PApplet.main(new String[]{"hack.the.bubble.casper.Casper"});
+    }
+
+    private static void loadAssets() {
         try {
             ResourceManager.getInstance().registerSprite("player-frankenstein", Casper.class.getResource("/Frankenstein.png"));
             ResourceManager.getInstance().registerSprite("player-ghost", Casper.class.getResource("/Ghost.png"));
@@ -122,8 +105,6 @@ public class Casper extends PApplet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        PApplet.main(new String[]{"hack.the.bubble.casper.Casper"});
-
     }
 
 

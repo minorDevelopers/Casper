@@ -2,11 +2,8 @@ package hack.the.bubble.casper.entities;
 
 import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
-import hack.the.bubble.casper.ResourceManager;
-import processing.core.PApplet;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Random;
 
 public class NPC extends BaseEntity{
@@ -17,9 +14,10 @@ public class NPC extends BaseEntity{
     private int currentTime;
     private int totalTime;
     private int timeToCross;
-    private static String npcStrings[] = {"player-frankenstein", "player-ghost", "player-pumpkin-man", "player-vampire"};
 
-    private int startX, startY, endX, endY;
+    private static final String[] npcStrings = {"player-frankenstein", "player-ghost", "player-pumpkin-man", "player-vampire"};
+
+    private Coordinate startPos, endPos;
 
     public NPC(DrawBuffer mainInstance, int minTime, int maxTime) {
         super(mainInstance, npcStrings[rd.nextInt(npcStrings.length)], 130);
@@ -32,20 +30,21 @@ public class NPC extends BaseEntity{
         this.hasCovid = rd.nextBoolean();
         this.setEntityType("NPC");
         this.transmissionRate = 0.8;
+        this.startPos = new Coordinate();
+        this.endPos = new Coordinate();
         setStartEndLocation(1900 * 3, 1080 * 2);
     }
 
     private void setStartEndLocation(int screenWidth, int screenHeight) {
-        boolean startLeft = rd.nextBoolean();
         if (rd.nextBoolean()){
-            this.startX = -this.pixWidth;
-            this.endX = screenWidth;
+            this.startPos.setX(-this.pixWidth);
+            this.endPos.setX(screenWidth);
         }else {
-            this.startX = screenWidth;
-            this.endX = -this.pixWidth;
+            this.startPos.setX(screenWidth);
+            this.endPos.setX(-this.pixWidth);
         }
-        this.startY = 1 + rd.nextInt(screenWidth);
-        this.endY = 1 + rd.nextInt(screenWidth);
+        this.startPos.setY(1 + rd.nextInt(screenHeight));
+        this.endPos.setY(1 + rd.nextInt(screenHeight));
     }
 
     @Override
@@ -63,8 +62,7 @@ public class NPC extends BaseEntity{
             this.isVisible = false;
             return;
         }
-        this.setPosX(linearInterpolate(startX, endX, percentage));
-        this.setPosY(linearInterpolate(startY, endY, percentage));
+        this.setPos(linearInterpolate(startPos, endPos, percentage));
     }
 
     @Override
@@ -73,15 +71,13 @@ public class NPC extends BaseEntity{
         if (this.getDistanceFrom(player) < 400 && player.getScore() > 0) {
             newEntitiesList.add(new ThrownCandy(this.mainInstance, player, this));
             // Update time to get back based on previous speed
-            float originalDist = distToTravel(new Coordinate(startX, startY), new Coordinate(endX, endY));
+            float originalDist = distToTravel(startPos, endPos);
             float originalSpeed = originalDist / timeToCross;
             // If so then set end coordinates to start coordinates
-            endX = startX;
-            endY = startY;
+            endPos = startPos;
             // start coordinates to current coordinates
-            startX = this.getPosX();
-            startY = this.getPosY();
-            float newDist = distToTravel(new Coordinate(startX, startY), new Coordinate(endX, endY));
+            startPos = this.getPos();
+            float newDist = distToTravel(startPos, endPos);
             this.timeToCross = (int) ((newDist / originalSpeed) / 1.1f);
             this.currentTime = (int)System.currentTimeMillis();
             this.lastTime = this.currentTime;
@@ -98,8 +94,8 @@ public class NPC extends BaseEntity{
         return (float)Math.sqrt( diff );
     }
 
-    private int linearInterpolate(int y1, int y2, float mu) {
-        return (int)((float)y1 * (1 - mu) + (float) y2 * mu);
+    private Coordinate linearInterpolate(Coordinate pos1, Coordinate pos2, float mu) {
+        return new Coordinate((int)((float)pos1.getX() * (1 - mu) + (float) pos2.getX() * mu),(int)((float)pos2.getY() * (1 - mu) + (float) pos2.getY() * mu));
     }
 
     public boolean isHasCovid() {

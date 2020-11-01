@@ -1,7 +1,6 @@
 package hack.the.bubble.casper.entities;
 
 import hack.the.bubble.casper.DrawBuffer;
-import hack.the.bubble.casper.ResourceManager;
 
 import java.util.Collection;
 import java.util.Random;
@@ -21,8 +20,7 @@ public class Candy extends BaseEntity {
         this.setEntityType("candy");
 
         // TODO: generate positions based on map
-        this.setPosX(random.nextInt(3*applet.width));
-        this.setPosY(random.nextInt(3*applet.height));
+        this.setPos(random.nextInt(3*applet.width),random.nextInt(3*applet.height));
     }
 
     

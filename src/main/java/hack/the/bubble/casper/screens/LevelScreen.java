@@ -36,7 +36,7 @@ public class LevelScreen extends Screen {
 
     @Override
     public void render() {
-        String text = "";
+        String text;
         this.getCasper().getDrawBuffer().image(ResourceManager.getInstance().getImage("BetweenLevelScreen"), 0, 0, getCasper().getDrawBuffer().width, getCasper().getDrawBuffer().height);
         //this.getCasper().getDrawBuffer().hudText("Level Completed", 300,265);
         if (stats.isHasCOVID()) {

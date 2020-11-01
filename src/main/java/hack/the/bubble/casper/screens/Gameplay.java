@@ -10,14 +10,12 @@ import hack.the.bubble.casper.entities.Candy;
 import hack.the.bubble.casper.entities.NPC;
 import hack.the.bubble.casper.entities.Player;
 import hack.the.bubble.casper.entities.Spider;
-import hack.the.bubble.casper.entities.Wall;
 import hack.the.bubble.casper.entities.candyable.Bush;
 import hack.the.bubble.casper.entities.candyable.Pumpkin;
 import hack.the.bubble.casper.entities.candyable.Tree;
 import processing.core.PImage;
 
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -98,7 +96,7 @@ public class Gameplay extends Screen {
         Coordinate coordinate = getCasper().getDrawBuffer().convertScreenToGameCoordinates(x, y);
         entities.stream()
                 .filter((entity) -> entity.intersects(coordinate.getX(), coordinate.getY()))
-                .forEach(e->{e.onClicked(this.player, this.newEntities);});
+                .forEach(e-> e.onClicked(this.player, this.newEntities));
     }
 
     public boolean willCollide(Rectangle hitbox) {
@@ -134,7 +132,7 @@ public class Gameplay extends Screen {
 
             shouldQuit = player.getScore() >= this.candyLimit;
 
-            if (e.getEntityType() == "NPC" && e.getDistanceFrom(this.player) < COVID_DISTANCE) {
+            if (e.getEntityType().equals("NPC") && e.getDistanceFrom(this.player) < COVID_DISTANCE) {
 
                 if (e.hasCovid() && !this.player.hasCovid() && this.player.getCovidCooldown() <= 0) {
                     this.player.setCovidCooldown(MAX_COVID_COOLDOWN);
@@ -148,9 +146,7 @@ public class Gameplay extends Screen {
             }
         });
 
-        this.newEntities.forEach(e -> {
-            entities.add(e);
-        });
+        entities.addAll(this.newEntities);
 
         // Entity Removal
         Iterator<BaseEntity> iter = entities.iterator();
@@ -158,11 +154,11 @@ public class Gameplay extends Screen {
         int countSpider = 0;
         while (iter.hasNext()) {
             BaseEntity e = iter.next();
-            if (e.getEntityType() == "NPC" && e.isVisible() == false) {
+            if (e.getEntityType().equals("NPC") && !e.isVisible()) {
                 iter.remove();
                 countNPC++;
             }
-            if (e.getEntityType() == "Spider" && e.isVisible() == false) {
+            if (e.getEntityType().equals("Spider") && !e.isVisible()) {
                 iter.remove();
                 countSpider++;
             }

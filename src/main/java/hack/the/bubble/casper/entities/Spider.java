@@ -1,6 +1,5 @@
 package hack.the.bubble.casper.entities;
 
-import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
 
 import java.util.Collection;

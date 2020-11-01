@@ -5,7 +5,7 @@ import processing.core.PImage;
 
 public class DrawBuffer {
 
-    private PApplet parent;
+    private final PApplet parent;
 
     private double xOffset = 0;
     private double yOffset = 0;

@@ -3,15 +3,13 @@ package hack.the.bubble.casper.entities;
 import hack.the.bubble.casper.Coordinate;
 import hack.the.bubble.casper.DrawBuffer;
 import hack.the.bubble.casper.ResourceManager;
-import processing.core.PApplet;
 
 import java.awt.*;
-import java.math.*;
 import java.util.Collection;
 
 public abstract class BaseEntity {
 
-    private int posX, posY;
+    private Coordinate pos;
     protected int moveSpeed;
     protected String imageId;
     protected boolean isVisible;
@@ -24,8 +22,7 @@ public abstract class BaseEntity {
 
     public BaseEntity(DrawBuffer instance, String imageId, int pixWidth) {
         this.mainInstance = instance;
-        this.posX = instance.width / 2;
-        this.posY = instance.height / 2;
+        this.pos = new Coordinate(instance.width / 2, instance.height / 2);
         this.imageId = imageId;
         this.isVisible = true;
         this.pixWidth = pixWidth;
@@ -66,7 +63,7 @@ public abstract class BaseEntity {
         if(this.isVisible) {
             this.mainInstance.image(
                     ResourceManager.getInstance().getImage(imageId),
-                    this.posX, this.posY,
+                    this.pos.getX(), this.pos.getY(),
                     this.pixWidth, this.pixHeight
             );
         }
@@ -116,7 +113,7 @@ public abstract class BaseEntity {
 
 
     public Coordinate getCenter() {
-        return new Coordinate( this.posX+this.pixWidth/2, this.posY+this.pixHeight/2 );
+        return new Coordinate( this.pos.getX()+this.pixWidth/2, this.pos.getY()+this.pixHeight/2 );
     }
 
     public float getDistanceFrom(BaseEntity e) {
@@ -131,7 +128,7 @@ public abstract class BaseEntity {
 
     // Returns a Rectangle object surrounding the entity at its position
     public Rectangle hitbox() {
-        return new Rectangle(this.posX, this.posY, this.pixWidth, this.pixHeight);
+        return new Rectangle(this.pos.getX(), this.pos.getY(), this.pixWidth, this.pixHeight);
     }
 
 
@@ -140,19 +137,31 @@ public abstract class BaseEntity {
      */
 
     public int getPosX() {
-        return posX;
+        return pos.getX();
     }
 
     public void setPosX(int posX) {
-        this.posX = posX;
+        this.pos.setX(posX);
     }
 
     public int getPosY() {
-        return posY;
+        return pos.getY();
     }
 
     public void setPosY(int posY) {
-        this.posY = posY;
+        this.pos.setY(posY);
+    }
+
+    public Coordinate getPos() {
+        return this.pos;
+    }
+
+    public void setPos(Coordinate pos) {
+        this.pos = pos;
+    }
+
+    public void setPos(int x, int y) {
+        this.pos = new Coordinate(x, y);
     }
 
     public boolean isVisible() {

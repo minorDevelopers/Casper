@@ -14,7 +14,7 @@ public class ThrownCandy extends BaseEntity{
     private int currentTime;
     private int totalTime;
     private float timeToCross;
-    private static String candyStrings[] = {"candy.lolly", "candy.wrapped", "candy.corn"};
+    private static String[] candyStrings = {"candy.lolly", "candy.wrapped", "candy.corn"};
 
     private Coordinate startPos, endPos;
 
@@ -43,7 +43,7 @@ public class ThrownCandy extends BaseEntity{
         currentTime = (int)System.currentTimeMillis();
         totalTime += currentTime - lastTime;
         lastTime = currentTime;
-        float percentage = (float)totalTime/ ((float)timeToCross * 1000.f);
+        float percentage = (float)totalTime/ (timeToCross * 1000.f);
         if (percentage >= 2.0){
             this.isVisible = false;
             return;
